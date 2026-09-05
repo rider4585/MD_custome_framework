@@ -79,15 +79,27 @@ exceptional. Without a retry loop, adopting a higher level converts correctness
 into user-visible errors.
 
 ```js
-async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+const RETRYABLE = new Set(['40001', '40P01']);   // serialization failure, deadlock
+
+async function withRetry(fn, attempts = 3) {
   for (let i = 0; ; i++) {
-    try { return await fn(); }
-    catch (e: any) {
-      if (!['40001', '40P01'].includes(e.code) || i >= attempts - 1) throw e;
-      await new Promise(r => setTimeout(r, 2 ** i * 50 + Math.random() * 50));
+    try {
+      return await fn();
+    } catch (err) {
+      // Sequelize wraps the driver error; the SQLSTATE is on .original
+      const code = err?.original?.code ?? err?.parent?.code ?? err?.code;
+      if (!RETRYABLE.has(code) || i >= attempts - 1) throw err;
+      await new Promise((r) => setTimeout(r, 2 ** i * 50 + Math.random() * 50));
     }
   }
 }
+
+// usage — the whole transaction is retried, so it re-reads on each attempt
+await withRetry(() =>
+  sequelize.transaction({ isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE },
+    async (t) => {
+      /* … reads and writes using { transaction: t } … */
+    }));
 ```
 
 The retried function must re-read everything — replaying a computation from stale
@@ -153,6 +165,8 @@ source of lock contention and timeouts.
 - **PostgreSQL 16 documentation — Client Connection Defaults** —
   `statement_timeout`, `idle_in_transaction_session_timeout`
   <https://www.postgresql.org/docs/16/runtime-config-client.html>
+- **Sequelize documentation — Transactions** — managed transactions and
+  `isolationLevel` <https://sequelize.org/docs/v6/other-topics/transactions/>
 
 **Not sourced — written for this framework:** the POS atomicity example, the
 TypeScript retry helper, the no-external-I/O rule, and the detection commands.
