@@ -169,4 +169,5 @@ source of lock contention and timeouts.
   `isolationLevel` <https://sequelize.org/docs/v6/other-topics/transactions/>
 
 **Not sourced — written for this framework:** the POS atomicity example, the
-TypeScript retry helper, the no-external-I/O rule, and the detection commands.
+retry helper and its Sequelize error-shape handling, the no-external-I/O rule,
+and the detection commands.
