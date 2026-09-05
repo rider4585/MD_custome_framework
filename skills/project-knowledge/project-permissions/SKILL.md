@@ -42,9 +42,9 @@ cannot verify a cell, mark it `?` and raise it — do not fill it in optimistica
 3. **Find every enforcement point.** Authorisation is enforced in more places than
    anyone remembers:
    ```bash
-   grep -rnE "@(Roles|UseGuards|RequirePermission|Authorized)" src/ --include=*.ts
-   grep -rnE "req\.user|currentUser|ctx\.user" src/ --include=*.ts | head -40
-   grep -rnE "(isAdmin|hasRole|can|ability|policy)" src/ --include=*.ts | head -40
+   grep -rnE "@(Roles|UseGuards|RequirePermission|Authorized)" src/ --include=*.js
+   grep -rnE "req\.user|currentUser|ctx\.user" src/ --include=*.js | head -40
+   grep -rnE "(isAdmin|hasRole|can|ability|policy)" src/ --include=*.js | head -40
    ```
    Include route middleware, service-layer checks, and any row-level filtering.
 

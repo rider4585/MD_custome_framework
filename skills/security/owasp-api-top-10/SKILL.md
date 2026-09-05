@@ -31,12 +31,12 @@ For every route taking an identifier, answer: *what stops an authenticated user
 from substituting another tenant's identifier?* Demand a server-side ownership
 check on the query itself.
 
-```ts
+```js
 // ❌ authenticated, but not authorised
-const sale = await repo.findUnique({ where: { id } });
+const sale = await Sale.findByPk(id);
 
 // ✅ ownership is part of the query
-const sale = await repo.findFirst({ where: { id, shopId: user.shopId } });
+const sale = await Sale.findOne({ where: { id, shopId: req.user.shopId } });
 ```
 
 → `broken-object-level-authorization`

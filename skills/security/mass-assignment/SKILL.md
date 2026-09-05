@@ -19,9 +19,9 @@ An endpoint spreads the request body into a model write. The client sends an
 extra field the developer never intended to expose, and the ORM obligingly
 persists it.
 
-```ts
+```js
 // ❌ whatever the client sends is written
-await db.user.update({ where: { id }, data: req.body });
+await User.update(req.body, { where: { id } });
 
 // client sends: { "name": "Ravi", "role": "owner" }
 ```
@@ -34,11 +34,11 @@ In a retail system the high-value targets are obvious: `role`, `unitPrice`,
 
 ```bash
 # Whole-body writes
-grep -rnE "(create|update|save|insert)\(\s*\{?\s*(data:\s*)?(req\.body|body|dto)\s*[,}\)]" src/ --include=*.ts
+grep -rnE "(create|update|save|insert)\(\s*\{?\s*(data:\s*)?(req\.body|body|dto)\s*[,}\)]" src/ --include=*.js
 # Spread of request data into an entity
-grep -rnE "\.\.\.(req\.body|body|dto|input)" src/ --include=*.ts
+grep -rnE "\.\.\.(req\.body|body|dto|input)" src/ --include=*.js
 # ORM bulk-assign helpers
-grep -rnE "Object\.assign\(\s*(entity|model|user|product)" src/ --include=*.ts
+grep -rnE "Object\.assign\(\s*(entity|model|user|product)" src/ --include=*.js
 ```
 
 Then check each hit: is there an allow-list between the request and the write?
@@ -48,17 +48,20 @@ Then check each hit: is there an allow-list between the request and the write?
 **Allow-list explicitly.** A denylist of dangerous fields fails the moment a new
 sensitive column is added.
 
-```ts
+```js
 // ✅ only these fields can ever be written from a request
 const data = { name: dto.name, description: dto.description };
-await db.product.update({ where: { id, shopId: user.shopId }, data });
+await Product.update(data, {
+  where: { id, shopId: req.user.shopId },
+  fields: ["name", "description"],        // allow-list, enforced by Sequelize
+});
 ```
 
-**Use a validated DTO that strips unknown properties.** With `class-validator`,
-`whitelist: true` plus `forbidNonWhitelisted: true`; with Zod, `.strict()` so
-unexpected keys are rejected rather than silently passed through.
+**Use a Zod schema that rejects unknown properties.** `.strict()` makes an
+unexpected key an error instead of a silent strip, so an attempt to set a
+privileged field surfaces rather than disappearing.
 
-```ts
+```js
 const UpdateProduct = z.object({ name: z.string(), description: z.string() }).strict();
 const data = UpdateProduct.parse(req.body);
 ```
@@ -105,8 +108,9 @@ fields. `MEDIUM` for metadata such as timestamps.
   <https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html>
 - **CWE-915** <https://cwe.mitre.org/data/definitions/915.html>
 - **Zod documentation — `.strict()`** <https://zod.dev/>
-- **class-validator / NestJS ValidationPipe — `whitelist`,
-  `forbidNonWhitelisted`** <https://docs.nestjs.com/techniques/validation>
+- **Sequelize documentation — Model instances and `fields` option** — limiting
+  which attributes a create or update may write
+  <https://sequelize.org/docs/v6/core-concepts/model-instances/>
 
 **Not sourced — written for this framework:** the detection commands, the retail
 sensitive-field list, and the severity mapping.

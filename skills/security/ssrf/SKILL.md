@@ -36,9 +36,9 @@ Any feature that fetches a URL supplied or influenced by a user:
 - Third-party integrations configured with a user-supplied base URL
 
 ```bash
-grep -rnE "(fetch|axios|got|request|undici)\s*\(" src/ --include=*.ts
-grep -rnE "\.(get|post)\(\s*(url|req\.body|dto|input|target)" src/ --include=*.ts
-grep -rnE "(webhookUrl|callbackUrl|imageUrl|redirectUri|endpoint)" src/ --include=*.ts
+grep -rnE "(fetch|axios|got|request|undici)\s*\(" src/ --include=*.js
+grep -rnE "\.(get|post)\(\s*(url|req\.body|dto|input|target)" src/ --include=*.js
+grep -rnE "(webhookUrl|callbackUrl|imageUrl|redirectUri|endpoint)" src/ --include=*.js
 ```
 
 ### Remediation
@@ -61,7 +61,7 @@ those hosts and nothing else.
 5. Guard against DNS rebinding: resolve once, then connect to that pinned
    address rather than re-resolving.
 
-```ts
+```js
 const ip = (await dns.lookup(new URL(target).hostname)).address;
 if (BLOCKED.check(ip)) throw new BadRequestException('destination not allowed');
 ```

@@ -25,7 +25,7 @@ formalities — an unattended session is another cashier's session.
 ### Cookie configuration
 
 ```bash
-grep -rnE "cookie\(|res\.cookie|session\(\{|SameSite|httpOnly|secure:" src/ --include=*.ts
+grep -rnE "cookie\(|res\.cookie|session\(\{|SameSite|httpOnly|secure:" src/ --include=*.js
 ```
 
 | Attribute | Required value | Why |
@@ -48,7 +48,7 @@ script and cannot be `HttpOnly`.
 2. **Fixation.** Regenerate the session identifier on every privilege change —
    login, MFA completion, role change. Accepting a pre-login identifier after
    authentication is CWE-384.
-   ```ts
+   ```js
    req.session.regenerate(() => { req.session.userId = user.id; });
    ```
 3. **Idle timeout.** Expire after inactivity. For a shared till, short — 15

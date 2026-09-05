@@ -50,7 +50,7 @@ it, route verification elsewhere and say why.
    sink is reachable from three others is not a fix. Search for the sink, not the
    patch.
    ```bash
-   grep -rn "<the vulnerable function or query>" src/ --include=*.ts
+   grep -rn "<the vulnerable function or query>" src/ --include=*.js
    ```
 
 5. **Verify the control sits at the right layer.** Server-side, before the

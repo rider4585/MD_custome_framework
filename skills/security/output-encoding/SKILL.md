@@ -48,7 +48,7 @@ cell beginning `=`, `+`, `-`, `@`, tab, or CR is interpreted as a formula by
 Excel and Sheets, and can exfiltrate data or run commands when a staff member
 opens the export.
 
-```ts
+```js
 const csvSafe = (v: string) =>
   /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
 ```
@@ -59,10 +59,10 @@ exports — treat this as a real finding, not a theoretical one.
 ### Detection
 
 ```bash
-grep -rnE "encodeURI\(|escape\(" src/ --include=*.ts          # wrong or legacy helpers
-grep -rn "dangerouslySetInnerHTML" src/ --include=*.tsx
-grep -rnE "(join\(','\)|\.csv|toCsv|writeCsv)" src/ --include=*.ts
-grep -rnE "res\.(set|header)\(\s*['\"]Content-Type" src/ --include=*.ts
+grep -rnE "encodeURI\(|escape\(" src/ --include=*.js          # wrong or legacy helpers
+grep -rn "dangerouslySetInnerHTML" src/ --include=*.jsx
+grep -rnE "(join\(','\)|\.csv|toCsv|writeCsv)" src/ --include=*.js
+grep -rnE "res\.(set|header)\(\s*['\"]Content-Type" src/ --include=*.js
 ```
 
 ### Checklist

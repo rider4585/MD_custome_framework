@@ -36,7 +36,7 @@ while marked `[inferred]` or `[assumed]`. Route it to Open Questions and stop.
 1. **Find the quantity of record.** Is stock a stored column, or derived by
    summing a movement ledger? This single fact determines everything else.
    ```bash
-   grep -rnE "(quantity|qty|stock|on_hand|available)" src/ --include=*.ts | head -40
+   grep -rnE "(quantity|qty|stock|on_hand|available)" src/ --include=*.js | head -40
    ```
    A stored column with no ledger cannot be audited — record that as a finding.
 

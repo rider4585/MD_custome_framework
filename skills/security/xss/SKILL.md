@@ -25,10 +25,10 @@ React escapes text interpolated into JSX. That covers most rendering and is why
 XSS in React is concentrated in a small number of known escapes:
 
 ```bash
-grep -rn "dangerouslySetInnerHTML" src/ --include=*.tsx
-grep -rnE "href=\{|src=\{|action=\{" src/ --include=*.tsx
-grep -rnE "innerHTML|outerHTML|insertAdjacentHTML|document\.write" src/ --include=*.ts --include=*.tsx
-grep -rnE "\beval\(|new Function\(|setTimeout\(\s*[\"'\`]" src/ --include=*.ts
+grep -rn "dangerouslySetInnerHTML" src/ --include=*.jsx
+grep -rnE "href=\{|src=\{|action=\{" src/ --include=*.jsx
+grep -rnE "innerHTML|outerHTML|insertAdjacentHTML|document\.write" src/ --include=*.jsx
+grep -rnE "\beval\(|new Function\(|setTimeout\(\s*[\"'\`]" src/ --include=*.js
 ```
 
 | Escape | Why it bypasses escaping |
@@ -45,7 +45,7 @@ grep -rnE "\beval\(|new Function\(|setTimeout\(\s*[\"'\`]" src/ --include=*.ts
 **Rendering HTML.** If you must, sanitise with a maintained library, configured
 allow-list only:
 
-```ts
+```js
 import DOMPurify from 'dompurify';
 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }} />
 ```
@@ -54,7 +54,7 @@ and re-sanitising on read is what actually protects you.
 
 **URLs from input.** Validate the scheme against an allow-list before use:
 
-```ts
+```js
 const safe = (u: string) => {
   try { return ['http:', 'https:', 'mailto:'].includes(new URL(u, location.origin).protocol) ? u : '#'; }
   catch { return '#'; }

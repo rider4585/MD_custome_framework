@@ -25,7 +25,7 @@ system that means every shop's sales, costs, and customers.
 **Parameterised queries.** Escaping, quoting, and denylists all fail on some
 encoding or dialect. Bind values; never concatenate them.
 
-```ts
+```js
 // ❌ interpolated — injectable
 db.query(`SELECT * FROM sales WHERE shop_id = ${shopId} AND note = '${note}'`);
 
@@ -37,11 +37,11 @@ db.query('SELECT * FROM sales WHERE shop_id = $1 AND note = $2', [shopId, note])
 
 ```bash
 # Template literals reaching query calls
-grep -rnE "(query|raw|execute)\(\s*\`" src/ --include=*.ts
+grep -rnE "(query|raw|execute)\(\s*\`" src/ --include=*.js
 # String concatenation into SQL
-grep -rnE "(SELECT|INSERT|UPDATE|DELETE|WHERE|ORDER BY)[^\"'\`]*(\+|\\\$\{)" src/ --include=*.ts -i
+grep -rnE "(SELECT|INSERT|UPDATE|DELETE|WHERE|ORDER BY)[^\"'\`]*(\+|\\\$\{)" src/ --include=*.js -i
 # ORM escape hatches — the usual culprits
-grep -rnE "queryRawUnsafe|executeRawUnsafe|\.raw\(|sequelize\.query\(|knex\.raw\(" src/ --include=*.ts
+grep -rnE "sequelize\.query\(|QueryTypes|\.literal\(|\.raw\(" src/ --include=*.js
 ```
 
 Then **trace each hit**: does user input actually reach it? A template literal
@@ -53,7 +53,7 @@ Bind parameters work for *values* only. These need different handling:
 
 1. **Dynamic column or table names** — cannot be bound. Allow-list against a
    fixed set:
-   ```ts
+   ```js
    const SORTABLE = { name: 'name', price: 'unit_price' } as const;
    const col = SORTABLE[req.query.sort as keyof typeof SORTABLE] ?? 'name';
    ```
@@ -62,7 +62,7 @@ Bind parameters work for *values* only. These need different handling:
 
 3. **`IN` lists** — generate the correct number of placeholders; never join the
    values into the string.
-   ```ts
+   ```js
    const ph = ids.map((_, i) => `$${i + 1}`).join(',');
    db.query(`SELECT * FROM products WHERE id IN (${ph})`, ids);
    ```

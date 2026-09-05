@@ -24,8 +24,8 @@ allow-list it.
 ### OS command injection (CWE-78)
 
 ```bash
-grep -rnE "(exec|execSync)\(" src/ --include=*.ts
-grep -rnE "(spawn|spawnSync|execFile)\(.*shell:\s*true" src/ --include=*.ts
+grep -rnE "(exec|execSync)\(" src/ --include=*.js
+grep -rnE "(spawn|spawnSync|execFile)\(.*shell:\s*true" src/ --include=*.js
 ```
 
 - **Never** build a shell string from input. Prefer `execFile`/`spawn` with an
@@ -34,7 +34,7 @@ grep -rnE "(spawn|spawnSync|execFile)\(.*shell:\s*true" src/ --include=*.ts
   argument against a strict pattern. Escaping shell metacharacters is not a
   reliable defence.
 
-```ts
+```js
 // ❌ shell parses the input
 exec(`convert ${file} out.png`);
 // ✅ arguments never reach a shell
@@ -44,13 +44,13 @@ execFile('convert', [file, 'out.png']);
 ### Path traversal (CWE-22)
 
 ```bash
-grep -rnE "(readFile|writeFile|createReadStream|sendFile|unlink)\(" src/ --include=*.ts
+grep -rnE "(readFile|writeFile|createReadStream|sendFile|unlink)\(" src/ --include=*.js
 ```
 
 Input reaching a filesystem path can escape with `../`, absolute paths, symlinks,
 or URL/unicode encodings.
 
-```ts
+```js
 const base = path.resolve('/srv/uploads');
 const full = path.resolve(base, path.normalize(name));
 if (!full.startsWith(base + path.sep)) throw new ForbiddenException();

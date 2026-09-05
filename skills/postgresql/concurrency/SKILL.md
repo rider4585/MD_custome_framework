@@ -29,7 +29,7 @@ completely between these two statements, would the result still be correct?*
 The canonical bug. Two sales of the last unit; both read `quantity = 1`, both
 write `0`, one unit oversold.
 
-```ts
+```js
 // ❌ read, compute, write — the gap is the bug
 const { quantity } = await db.one('SELECT quantity FROM stock WHERE id=$1', [id]);
 if (quantity < qty) throw new Error('insufficient');
@@ -129,11 +129,11 @@ the next caller.
 
 ```bash
 # Read-then-write in application code
-grep -rnB2 -A6 -E "SELECT.*(quantity|stock|balance|total|count)" src/ --include=*.ts | grep -A6 -i "update"
+grep -rnB2 -A6 -E "SELECT.*(quantity|stock|balance|total|count)" src/ --include=*.js | grep -A6 -i "update"
 # Non-atomic assignment of a computed value
-grep -rnE "SET\s+(quantity|stock|balance|total)\s*=\s*\$" src/ --include=*.ts
+grep -rnE "SET\s+(quantity|stock|balance|total)\s*=\s*\$" src/ --include=*.js
 # Existence check before insert
-grep -rnB3 -A6 -E "find(First|Unique|One)\(" src/ --include=*.ts | grep -A6 -E "create\(|insert"
+grep -rnB3 -A6 -E "find(First|Unique|One)\(" src/ --include=*.js | grep -A6 -E "create\(|insert"
 ```
 
 ### Testing
@@ -141,7 +141,7 @@ grep -rnB3 -A6 -E "find(First|Unique|One)\(" src/ --include=*.ts | grep -A6 -E "
 Unit tests will not find these. Write a concurrency test that runs N operations
 simultaneously and asserts the invariant:
 
-```ts
+```js
 await Promise.all(Array.from({ length: 20 }, () => sellOneUnit(productId)));
 expect(await stockOf(productId)).toBe(0);          // never negative
 expect(await successfulSaleCount()).toBe(10);      // exactly the stock that existed

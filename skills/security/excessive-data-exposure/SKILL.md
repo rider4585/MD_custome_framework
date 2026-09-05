@@ -36,11 +36,11 @@ In an inventory and POS system, these should never reach a low-privilege client:
 
 ```bash
 # Whole-entity returns
-grep -rnE "res\.(json|send)\(\s*(user|product|sale|customer|entity|result)\s*\)" src/ --include=*.ts
+grep -rnE "res\.(json|send)\(\s*(user|product|sale|customer|entity|result)\s*\)" src/ --include=*.js
 # ORM includes that pull relations wholesale
-grep -rnE "include:\s*\{|relations:\s*\[|populate\(" src/ --include=*.ts
+grep -rnE "include:\s*\{|relations:\s*\[|populate\(" src/ --include=*.js
 # Absence of field selection
-grep -rnE "find(Many|All|First|Unique)\(" src/ -A 4 --include=*.ts | grep -v "select:"
+grep -rnE "find(Many|All|First|Unique)\(" src/ -A 4 --include=*.js | grep -v "select:"
 ```
 
 Then compare each response shape against what the consuming screen actually
@@ -51,18 +51,28 @@ renders.
 **Select explicitly at the query.** Cheapest and safest — the sensitive field
 never enters the process.
 
-```ts
-const products = await db.product.findMany({
-  where: { shopId: user.shopId },
-  select: { id: true, name: true, unitPrice: true },   // costPrice absent
+```js
+const products = await Product.findAll({
+  where: { shopId: req.user.shopId },
+  attributes: ['id', 'name', 'unitPrice'],   // costPrice never loaded
 });
 ```
 
-**Serialise through an explicit response DTO.** Never return an entity directly.
-Map to a response type whose fields are enumerated in code.
+**Serialise through an explicit response mapper.** Never return a model instance
+directly — `res.json(product)` serialises every loaded attribute, including ones
+added to the model later. Map to a plain object whose fields are enumerated:
 
-**Make exclusion structural, not incidental.** With `class-transformer`, mark
-sensitive fields `@Exclude()` and enable `excludeExtraneousValues`. A field that
+```js
+const toProductResponse = (p) => ({
+  id: p.id, name: p.name, unitPrice: p.unitPrice,
+});
+res.json(products.map(toProductResponse));
+```
+
+**Make exclusion structural, not incidental.** In Sequelize, a `defaultScope`
+with an `attributes.exclude`, or a `toJSON` override on the model, means the
+sensitive field is opted *out* by default rather than remembered case by case. A
+field that
 must be opted *in* cannot leak by forgetting.
 
 **Vary the shape by role.** A manager's product response legitimately includes
@@ -105,8 +115,9 @@ internal metadata.
   <https://cwe.mitre.org/data/definitions/213.html>
 - **OWASP REST Security Cheat Sheet** — response filtering guidance
   <https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html>
-- **NestJS documentation — Serialization (`@Exclude`,
-  `excludeExtraneousValues`)** <https://docs.nestjs.com/techniques/serialization>
+- **Sequelize documentation — `attributes` option** — selecting columns at the
+  query so sensitive fields never load
+  <https://sequelize.org/docs/v6/core-concepts/model-querying-basics/>
 
 **Not sourced — written for this framework:** the retail sensitive-field table,
 the detection commands, the role-varying response recommendation, and the

@@ -41,12 +41,14 @@ separately, and record them in separate columns.
 - **Authorise on the object, not on the input.** Load the record, then compare
   its owner to the session — or better, make ownership part of the `WHERE`.
 
-```ts
+```js
 // ❌ trusts the client's claim about scope
-const sale = await repo.findUnique({ where: { id: dto.id } });
+const sale = await Sale.findByPk(req.validated.id);
 
 // ✅ scope is enforced in the query; a foreign id simply returns nothing
-const sale = await repo.findFirst({ where: { id: dto.id, shopId: user.shopId } });
+const sale = await Sale.findOne({
+  where: { id: req.validated.id, shopId: req.user.shopId },
+});
 if (!sale) throw new NotFoundException();
 ```
 
@@ -57,11 +59,11 @@ if (!sale) throw new NotFoundException();
 
 ```bash
 # Operations reachable without a guard
-grep -rnE "@(Get|Post|Put|Patch|Delete)\(" src/ -A 3 --include=*.ts | grep -B 3 -v "Roles\|UseGuards"
+grep -rnE "@(Get|Post|Put|Patch|Delete)\(" src/ -A 3 --include=*.js | grep -B 3 -v "Roles\|UseGuards"
 # Lookups by id with no scoping
-grep -rnE "find(Unique|ByPk|One|ById)\(\s*\{?\s*(where:\s*)?\{\s*id" src/ --include=*.ts
+grep -rnE "find(Unique|ByPk|One|ById)\(\s*\{?\s*(where:\s*)?\{\s*id" src/ --include=*.js
 # Authority taken from the request instead of the session
-grep -rnE "(body|query|params)\.(role|isAdmin|shopId|tenantId|userId)" src/ --include=*.ts
+grep -rnE "(body|query|params)\.(role|isAdmin|shopId|tenantId|userId)" src/ --include=*.js
 ```
 
 The third pattern is especially important: any authority value read from the

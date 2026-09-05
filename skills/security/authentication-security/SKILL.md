@@ -24,8 +24,8 @@ recovery flow deserves as much scrutiny as the login itself.
 ### Password storage
 
 ```bash
-grep -rnE "(createHash|md5|sha1|sha256)\(" src/ --include=*.ts
-grep -rnE "(bcrypt|argon2|scrypt|pbkdf2)" src/ --include=*.ts package.json
+grep -rnE "(createHash|md5|sha1|sha256)\(" src/ --include=*.js
+grep -rnE "(bcrypt|argon2|scrypt|pbkdf2)" src/ --include=*.js package.json
 ```
 
 - Use **argon2id** (preferred) or **bcrypt** with cost ≥ 12. Never a plain hash —

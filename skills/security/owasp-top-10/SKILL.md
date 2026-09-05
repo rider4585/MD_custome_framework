@@ -50,10 +50,11 @@ Data exposed in transit or at rest.
 Untrusted data interpreted as a command or query.
 
 ```bash
-grep -rnE "\\\$\{[^}]*\}" src/ --include=*.ts | grep -iE "query|sql|exec"
-grep -rnE "(exec|execSync|spawn)\(|new Function\(|\beval\(" src/ --include=*.ts
+grep -rnE "\\\$\{[^}]*\}" src/ --include=*.js | grep -iE "query|sql|exec"
+grep -rnE "(exec|execSync|spawn)\(|new Function\(|\beval\(" src/ --include=*.js
 ```
-- Parameterise every query. ORM raw/`$queryRawUnsafe` calls are the usual defect.
+- Parameterise every query. The usual defect is an ORM raw-query escape hatch —
+  in Sequelize, `sequelize.query()` without `replacements`./;
 - Encode output per context; React escapes JSX text but not
   `dangerouslySetInnerHTML` or `href`.
 

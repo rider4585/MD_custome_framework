@@ -52,7 +52,7 @@ Separate from throttling, and more often missing:
 
 - **Pagination caps.** Enforce a server-side maximum; never honour an unbounded
   client `limit`.
-  ```ts
+  ```js
   const take = Math.min(Number(query.limit) || 25, 100);
   ```
 - **Query timeouts** at the database and HTTP layers.
@@ -72,9 +72,9 @@ Separate from throttling, and more often missing:
 ### Detection
 
 ```bash
-grep -rnE "rateLimit|Throttle|express-rate-limit|@nestjs/throttler|bottleneck" src/ package.json
-grep -rnE "(limit|take|pageSize)\s*[:=]\s*(Number|parseInt|req\.query)" src/ --include=*.ts
-grep -rn "trust proxy\|trustProxy" src/ --include=*.ts
+grep -rnE "rateLimit|Throttle|express-rate-limit|express-slow-down|bottleneck" src/ package.json
+grep -rnE "(limit|take|pageSize)\s*[:=]\s*(Number|parseInt|req\.query)" src/ --include=*.js
+grep -rn "trust proxy\|trustProxy" src/ --include=*.js
 ```
 
 An authentication endpoint with no limiter is a finding on its own.

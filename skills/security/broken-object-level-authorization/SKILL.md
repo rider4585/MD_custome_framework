@@ -44,11 +44,11 @@ network traffic.
 
 ```bash
 # Every route taking an id
-grep -rnE "['\"]/[a-z0-9/_-]*:(id|uuid|[a-zA-Z]+Id)" src/ --include=*.ts
+grep -rnE "['\"]/[a-z0-9/_-]*:(id|uuid|[a-zA-Z]+Id)" src/ --include=*.js
 # Lookups with no ownership predicate
-grep -rnE "find(Unique|ById|ByPk|One)\(" src/ -A 4 --include=*.ts | grep -v "shopId\|tenantId\|userId\|ownerId"
+grep -rnE "find(Unique|ById|ByPk|One)\(" src/ -A 4 --include=*.js | grep -v "shopId\|tenantId\|userId\|ownerId"
 # Update/delete by id alone — highest risk
-grep -rnE "\.(update|delete|destroy)\(\s*\{?\s*(where:\s*)?\{\s*id" src/ --include=*.ts
+grep -rnE "\.(update|delete|destroy)\(\s*\{?\s*(where:\s*)?\{\s*id" src/ --include=*.js
 ```
 
 Review **write** operations first. A missing check on `DELETE` or `PATCH` is
@@ -58,8 +58,8 @@ worse than on `GET`.
 
 1. **Scope in the query.** Ownership becomes part of the lookup; a foreign
    identifier returns nothing.
-   ```ts
-   const sale = await db.sale.findFirst({ where: { id, shopId: session.shopId } });
+   ```js
+   const sale = await Sale.findOne({ where: { id, shopId: req.user.shopId } });
    if (!sale) throw new NotFoundException();
    ```
 
@@ -72,7 +72,7 @@ worse than on `GET`.
 
 4. **Explicit check after load.** Acceptable, but relies on discipline at every
    call site:
-   ```ts
+   ```js
    if (sale.shopId !== session.shopId) throw new NotFoundException();
    ```
 

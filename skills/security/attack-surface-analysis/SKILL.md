@@ -26,8 +26,8 @@ surface is always larger than the API documentation suggests.
    documents: health checks, metrics, admin panels, file downloads, webhook
    receivers, GraphQL, WebSocket handlers, and static file serving.
    ```bash
-   grep -rnE "\.(get|post|put|patch|delete|all|use)\(" src/ --include=*.ts | wc -l
-   grep -rnE "@(Get|Post|Put|Patch|Delete|Sse|WebSocketGateway)\(" src/ --include=*.ts
+   grep -rnE "\.(get|post|put|patch|delete|all|use)\(" src/ --include=*.js | wc -l
+   grep -rnE "@(Get|Post|Put|Patch|Delete|Sse|WebSocketGateway)\(" src/ --include=*.js
    ```
 
 2. **Enumerate non-network entry points.** These are routinely missed:

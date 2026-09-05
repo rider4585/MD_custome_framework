@@ -18,8 +18,8 @@ allowed-tools:
 ## Project Design System Discovery
 
 Most projects have a design system whether or not anyone decided to build one.
-It is expressed in a Tailwind config, a handful of shared components, and a
-long tail of one-off values. Document the intended system and measure the drift.
+It is expressed in whatever token layer the stack provides, a handful of shared
+components, and a long tail of one-off values. Document the intended system and measure the drift.
 
 ### Confidence marking (mandatory)
 
@@ -28,13 +28,28 @@ long tail of one-off values. Document the intended system and measure the drift.
 
 ### Method
 
-1. **Find the token source.** Read `tailwind.config.*`, any `theme.ts`, CSS
-   custom properties in the global stylesheet, or a tokens package. This is the
-   declared system.
+1. **Find the token source.** Every project has one, even if nobody called it
+   that. Look in this order and record which layer is authoritative — projects
+   commonly acquire a second source without retiring the first, and that overlap
+   is itself a finding:
+
+   | Layer | Where it lives |
+   |---|---|
+   | CSS custom properties | `:root` in a global stylesheet — works in any project |
+   | Utility framework config | `tailwind.config.*`, or `@theme` in Tailwind v4 CSS |
+   | Component library theme | shadcn/ui `components.json` + its CSS variables, MUI/Chakra theme object |
+   | Standalone tokens package | `tokens.json`, Style Dictionary output |
+   | Font and icon sources | `@fontsource*` imports, icon library imports |
+
    ```bash
-   fd -e ts -e js -e css 'tailwind.config|theme|tokens|globals' --max-depth 3
    grep -rn "^\s*--[a-z-]*:" src/ --include=*.css | head -40
+   ls tailwind.config.* components.json 2>/dev/null
+   grep -rn "@fontsource\|@theme\|createTheme\|extendTheme" src/ package.json | head -20
    ```
+
+   A project with no config file still has a system — it is expressed in the CSS
+   variables and in whatever values repeat across components. Document that;
+   "there is no design system" is almost never true, and is never a useful finding.
 
 2. **Extract the scales.** Colour, typography, spacing, radius, shadow,
    breakpoints, z-index. For each, record the declared scale and its semantic
@@ -42,14 +57,27 @@ long tail of one-off values. Document the intended system and measure the drift.
    `surface`, `border`, `danger` is semantic. Note which you have — it determines
    how theming works.
 
-3. **Measure the drift.** Count hard-coded values that bypass the tokens. This is
-   the single most useful number in the document:
+3. **Measure the drift.** Count values that bypass whatever the token source is.
+   This number is the most useful thing in the document, because it says whether
+   the system is real or aspirational.
+
    ```bash
-   grep -rnE "#[0-9a-fA-F]{3,8}\b" src/ --include=*.tsx | wc -l
-   grep -rnE "\b(p|m|gap|w|h)-\[[0-9]" src/ --include=*.tsx | wc -l
-   grep -rnE "style=\{\{" src/ --include=*.tsx | wc -l
+   # Raw colour literals anywhere — applies to every stack
+   grep -rnE "#[0-9a-fA-F]{3,8}\b|\brgba?\(" src/ --include=*.css --include=*.jsx --include=*.js | wc -l
+   # Inline styles bypassing the stylesheet entirely
+   grep -rnE "style=\{\{" src/ --include=*.jsx --include=*.js | wc -l
+   # Magic pixel values not derived from a scale
+   grep -rnE ":\s*[0-9]+px" src/ --include=*.css | wc -l
+   # Utility-framework arbitrary values — only if such a framework is present
+   grep -rnE "\b(p|m|gap|w|h|text|bg)-\[" src/ --include=*.jsx | wc -l
    ```
-   Report counts with the worst offending files.
+
+   Run only the checks that apply to the stack in front of you, and say which you
+   ran. Reporting zero arbitrary-value hits in a project with no utility framework
+   is noise, not a clean bill of health.
+
+   Report counts alongside the worst offending files, and re-measure on a cadence —
+   the trend matters more than the absolute number.
 
 4. **Inventory the components.** List shared/primitive components, their props,
    and their variants. Then find duplicates — two Button implementations, three
@@ -106,11 +134,21 @@ Write `docs/project-knowledge/design-system.md`:
 - **WCAG 2.2, Success Criteria 1.4.3 / 1.4.11 / 2.4.7** — the contrast ratios and
   focus visibility requirements in steps 5 and 8
   <https://www.w3.org/TR/WCAG22/>
-- **Tailwind CSS documentation — Theme Configuration** — token source locations
-  in step 1 <https://tailwindcss.com/docs/theme>
+- **Tailwind CSS documentation — Theme** — one possible token source in step 1
+  <https://tailwindcss.com/docs/theme>
+- **shadcn/ui — Theming** — CSS-variable token convention, for projects that adopt it
+  <https://ui.shadcn.com/docs/theming>
+- **MDN — Using CSS custom properties** — the stack-independent token layer
+  <https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties>
 - **Brad Frost, _Atomic Design_** — the primitive/component inventory approach in
   step 4
 - **Munder Difflin `PROTOCOL.md`** — memory write-back and `propose` handoff
 
-**Not sourced — added deliberately:** the confidence marking and the drift-metric
-counting in step 3, which is a measurement convention rather than a standard.
+**Not sourced — added deliberately:** the confidence marking, the token-source
+layer table, and the drift-metric counting in step 3, which is a measurement
+convention rather than a standard.
+
+**Stack neutrality:** the method is written to hold as the stack changes. The
+token-source table and drift checks cover plain CSS custom properties today and
+utility-framework or component-library tokens when they are adopted; run the
+checks that apply and record which ones you ran.

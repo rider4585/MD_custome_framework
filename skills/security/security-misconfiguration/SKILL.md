@@ -23,7 +23,7 @@ them before launch.
 ### Security headers
 
 ```bash
-grep -rnE "helmet|Content-Security-Policy|Strict-Transport-Security|X-Frame-Options" src/ --include=*.ts
+grep -rnE "helmet|Content-Security-Policy|Strict-Transport-Security|X-Frame-Options" src/ --include=*.js
 ```
 
 | Header | Value | Purpose |
@@ -41,7 +41,7 @@ the policy is actually configured rather than assuming the library handled it.
 ### CORS
 
 ```bash
-grep -rnE "cors\(|Access-Control-Allow-(Origin|Credentials|Methods)" src/ --include=*.ts
+grep -rnE "cors\(|Access-Control-Allow-(Origin|Credentials|Methods)" src/ --include=*.js
 ```
 
 - `origin: true` or `'*'` **with** `credentials: true` is `CRITICAL` — it lets any
@@ -58,8 +58,8 @@ grep -rnE "cors\(|Access-Control-Allow-(Origin|Credentials|Methods)" src/ --incl
 - Remove `X-Powered-By` and version banners.
 
 ```bash
-grep -rnE "NODE_ENV|process\.env\.NODE_ENV" src/ --include=*.ts
-grep -rnE "stack|err\.stack" src/ --include=*.ts | grep -i "res\.\|json\|send"
+grep -rnE "NODE_ENV|process\.env\.NODE_ENV" src/ --include=*.js
+grep -rnE "stack|err\.stack" src/ --include=*.js | grep -i "res\.\|json\|send"
 ```
 
 ### Build and deployment
@@ -73,7 +73,7 @@ grep -rnE "stack|err\.stack" src/ --include=*.ts | grep -i "res\.\|json\|send"
 
 ```bash
 grep -rnE "sourcemap|devtool" vite.config.* webpack.config.* 2>/dev/null
-grep -rnE "(seed|debug|test)[-_]?(route|endpoint|mode)" src/ --include=*.ts
+grep -rnE "(seed|debug|test)[-_]?(route|endpoint|mode)" src/ --include=*.js
 ```
 
 ### Database and infrastructure
@@ -88,7 +88,7 @@ grep -rnE "(seed|debug|test)[-_]?(route|endpoint|mode)" src/ --include=*.ts
 Configuration should fail closed. A missing environment variable should stop
 startup, not silently disable a control:
 
-```ts
+```js
 const secret = process.env.SESSION_SECRET;
 if (!secret) throw new Error('SESSION_SECRET is required');   // ✅ fail closed
 ```

@@ -30,17 +30,17 @@ Always measure with `EXPLAIN (ANALYZE, BUFFERS)` before and after.
 One query for a list, then one per row. Usually invisible in code because the ORM
 hides it.
 
-```ts
+```js
 // ❌ 1 + N queries
-const sales = await db.sale.findMany({ where: { shopId } });
-for (const s of sales) s.lines = await db.saleLine.findMany({ where: { saleId: s.id } });
+const sales = await Sale.findAll({ where: { shopId } });
+for (const s of sales) s.lines = await SaleLine.findAll({ where: { saleId: s.id } });
 
 // ✅ one query
-const sales = await db.sale.findMany({ where: { shopId }, include: { lines: true } });
+const sales = await Sale.findAll({ where: { shopId }, include: [{ model: SaleLine, as: "lines" }] });
 ```
 
 ```bash
-grep -rnB4 -A8 -E "for\s*\(|\.map\(|forEach\(" src/ --include=*.ts | grep -E "await.*\.(find|query|select)"
+grep -rnB4 -A8 -E "for\s*\(|\.map\(|forEach\(" src/ --include=*.js | grep -E "await.*\.(find|query|select)"
 ```
 
 Log query counts per request in development — a request issuing 200 queries is

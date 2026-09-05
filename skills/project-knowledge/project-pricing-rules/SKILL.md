@@ -39,7 +39,7 @@ the system.
    checkout, invoice, report) that can disagree is the most important finding
    this skill can produce.
    ```bash
-   grep -rnE "(price|total|subtotal|tax|vat|discount|net|gross)" src/ --include=*.ts | head -50
+   grep -rnE "(price|total|subtotal|tax|vat|discount|net|gross)" src/ --include=*.js | head -50
    ```
 
 2. **Establish the storage representation.** Minor units (integer cents) or

@@ -25,7 +25,7 @@ secret as compromised from the moment it was written.
 ```bash
 # High-signal assignments
 grep -rnEi "(api[_-]?key|secret|passwd|password|token|bearer|credential)\s*[:=]\s*['\"][^'\"]{8,}" \
-  --include=*.ts --include=*.js --include=*.json --include=*.env* .
+  --include=*.json --include=*.env* .
 # Private keys and certificates
 grep -rn "BEGIN \(RSA \|EC \|OPENSSH \|PGP \)\?PRIVATE KEY" .
 # Connection strings with inline credentials
@@ -61,7 +61,7 @@ Reviewing source alone misses most of these:
 | Screenshots and docs | Tokens visible in pasted output |
 
 ```bash
-grep -rnE "console\.(log|error)\(.*(req|token|secret|password|key)" src/ --include=*.ts
+grep -rnE "console\.(log|error)\(.*(req|token|secret|password|key)" src/ --include=*.js
 grep -rnE "(VITE_|NEXT_PUBLIC_|REACT_APP_)[A-Z_]*(KEY|SECRET|TOKEN|PASSWORD)" . --include=*.env*
 ```
 

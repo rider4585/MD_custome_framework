@@ -26,9 +26,9 @@ added late, or an internal utility that became reachable.
 
 ```bash
 # Routes with no guard/decorator nearby
-grep -rnE "@(Get|Post|Put|Patch|Delete)\(" src/ -A 3 --include=*.ts | grep -B 3 -v "UseGuards\|Roles\|Auth"
+grep -rnE "@(Get|Post|Put|Patch|Delete)\(" src/ -A 3 --include=*.js | grep -B 3 -v "UseGuards\|Roles\|Auth"
 # Explicit opt-outs — verify every one is intentional
-grep -rnE "@(Public|SkipAuth|AllowAnonymous)|authRequired:\s*false" src/ --include=*.ts
+grep -rnE "@(Public|SkipAuth|AllowAnonymous)|authRequired:\s*false" src/ --include=*.js
 ```
 
 Every `@Public()` needs a justification. These accumulate during development and
@@ -37,7 +37,7 @@ are rarely revisited.
 ### JWT verification flaws
 
 ```bash
-grep -rnE "jwt\.(decode|verify)\(|jsonwebtoken|jose" src/ --include=*.ts
+grep -rnE "jwt\.(decode|verify)\(|jsonwebtoken|jose" src/ --include=*.js
 ```
 
 | Flaw | Check |
@@ -50,7 +50,7 @@ grep -rnE "jwt\.(decode|verify)\(|jsonwebtoken|jose" src/ --include=*.ts
 | Weak HMAC secret | Brute-forceable; require ≥ 256 bits from a CSPRNG |
 | Secret in source | See `secrets-detection` — `CRITICAL` |
 
-```ts
+```js
 // ✅ pin the algorithm and validate claims
 jwt.verify(token, key, { algorithms: ['RS256'], issuer: ISS, audience: AUD });
 ```
@@ -115,4 +115,4 @@ unpinned algorithms, and unauthenticated access to money or stock operations.
   of data authenticity) <https://cwe.mitre.org/>
 
 **Not sourced — written for this framework:** the detection commands, the
-NestJS-style decorator names, and the "we use JWTs so we can't revoke" rule.
+Express 5 middleware naming, and the "we use JWTs so we can't revoke" rule.

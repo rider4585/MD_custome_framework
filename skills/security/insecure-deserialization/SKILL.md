@@ -27,12 +27,12 @@ A merge, clone, or property-set driven by attacker-controlled keys can write to
 authorisation flags that default to undefined.
 
 ```bash
-grep -rnE "__proto__|prototype\[|constructor\[" src/ --include=*.ts
-grep -rnE "(merge|deepMerge|extend|assign|set)\(" src/ --include=*.ts
-grep -rnE "JSON\.parse\(" src/ --include=*.ts | head -30
+grep -rnE "__proto__|prototype\[|constructor\[" src/ --include=*.js
+grep -rnE "(merge|deepMerge|extend|assign|set)\(" src/ --include=*.js
+grep -rnE "JSON\.parse\(" src/ --include=*.js | head -30
 ```
 
-```ts
+```js
 // ❌ attacker sends { "__proto__": { "isAdmin": true } }
 function merge(target, source) {
   for (const k in source) {
@@ -49,7 +49,7 @@ for (const k of Object.keys(source)) {
 }
 ```
 
-Better still: parse into a **schema-validated typed object** (Zod, class-validator)
+Better still: parse through a **Zod schema that strips or rejects unknown keys**
 rather than merging raw input at all. A schema that strips unknown keys removes
 the entire class.
 

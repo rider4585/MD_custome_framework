@@ -57,7 +57,7 @@ is the exposure.
 deletes a record is exploitable with a bare `<img>` tag and defeats `SameSite=Lax`.
 
 ```bash
-grep -rnE "\.get\(" src/ -A 6 --include=*.ts | grep -iE "delete|update|create|void|refund|adjust|save"
+grep -rnE "\.get\(" src/ -A 6 --include=*.js | grep -iE "delete|update|create|void|refund|adjust|save"
 ```
 
 ### CORS interaction — commonly confused
@@ -67,7 +67,7 @@ governs whether the attacker can read the response. Worse, a permissive CORS
 policy actively enables attacks:
 
 ```bash
-grep -rnE "cors\(|Access-Control-Allow-(Origin|Credentials)" src/ --include=*.ts
+grep -rnE "cors\(|Access-Control-Allow-(Origin|Credentials)" src/ --include=*.js
 ```
 
 `origin: true` (reflect any origin) combined with `credentials: true` is a
@@ -77,8 +77,8 @@ read the results. Allow-list explicit origins.
 ### Detection
 
 ```bash
-grep -rnE "csurf|csrf|xsrf" src/ package.json --include=*.ts
-grep -rnE "sameSite" src/ --include=*.ts
+grep -rnE "csurf|csrf|xsrf" src/ package.json --include=*.js
+grep -rnE "sameSite" src/ --include=*.js
 ```
 
 Absence of any CSRF middleware in a cookie-authenticated application is itself

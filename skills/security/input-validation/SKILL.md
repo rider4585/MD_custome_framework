@@ -26,9 +26,9 @@ the object. Code that validates well and encodes poorly is still injectable.
    rest. A denylist is defeated by the input nobody thought of.
 2. **Validate at the boundary, once, before the handler body runs.** Scattered
    checks inside business logic get missed and drift.
-3. **Parse into a typed value, do not merely check.** After validation you should
-   hold a `Product`, not an `any` you have inspected. This makes the compiler
-   carry the guarantee forward.
+3. **Parse into a new value, do not merely check.** Use the schema's *output* and
+   discard the raw input. Validating `req.body` and then continuing to read
+   `req.body` leaves the unvalidated object in play, and the extra fields with it.
 4. **Reject unknown properties.** Silently passing extra fields through is how
    mass assignment happens — see `mass-assignment`.
 5. **Fail closed and fail loudly.** Return `400` with field-level detail; never
@@ -48,22 +48,40 @@ the object. Code that validates well and encodes poorly is still injectable.
 | Precision | currency scale, quantity decimals |
 | Cross-field | `endDate > startDate`, discount not exceeding line total |
 
-### Schema-first in TypeScript
+### Schema-first with Zod
 
-```ts
+```js
+import { z } from 'zod';
+
 const CreateSaleLine = z.object({
   productId: z.string().uuid(),
   quantity:  z.number().int().positive().max(10_000),
   unitPrice: z.number().int().nonnegative(),        // minor units
   discount:  z.number().min(0).max(100).default(0),
 }).strict();                                        // unknown keys rejected
-
-type CreateSaleLine = z.infer<typeof CreateSaleLine>;
 ```
 
-`.strict()` (Zod) or `whitelist: true, forbidNonWhitelisted: true` (NestJS
-`ValidationPipe`) is the part that closes the mass-assignment hole. Verify it is
-enabled globally, not per-route.
+Apply it as Express middleware so validation cannot be skipped per-route, and so
+the handler only ever sees the parsed result:
+
+```js
+const validate = (schema) => (req, res, next) => {
+  const result = schema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(400).json({ errors: z.treeifyError(result.error) });
+  }
+  req.validated = result.data;      // handlers read this, never req.body
+  next();
+};
+
+router.post('/sale-lines', validate(CreateSaleLine), createSaleLine);
+```
+
+`.strict()` is the part that closes the mass-assignment hole — without it Zod
+silently strips unknown keys rather than rejecting them, which hides the fact
+that a client tried to set something it should not. Assigning to `req.validated`
+matters just as much: if handlers keep reading `req.body`, the schema bought you
+nothing.
 
 ### Retail-specific constraints worth enforcing
 
@@ -81,11 +99,11 @@ These are the ones whose absence causes real financial damage:
 
 ```bash
 # Handlers taking raw body with no schema
-grep -rnE "(req\.body|req\.query|req\.params)" src/ --include=*.ts | grep -v "parse\|validate\|dto"
+grep -rnE "(req\.body|req\.query|req\.params)" src/ --include=*.js | grep -v "parse\|validate\|dto"
 # Unsafe coercion
-grep -rnE "(parseInt|parseFloat|Number)\(\s*(req|query|params|body)\." src/ --include=*.ts
+grep -rnE "(parseInt|parseFloat|Number)\(\s*(req|query|params|body)\." src/ --include=*.js
 # Global validation configured?
-grep -rnE "ValidationPipe|whitelist:\s*true|forbidNonWhitelisted" src/ --include=*.ts
+grep -rnE "safeParse|\.parse\(|z\.object|\.strict\(\)" src/ --include=*.js
 ```
 
 `Number(req.query.x)` yields `NaN` on bad input and silently propagates — always
@@ -110,7 +128,7 @@ the unvalidated value can reach, not by the field itself.
 
 - [ ] Every entry point has a boundary schema
 - [ ] Schemas allow-list and reject unknown properties
-- [ ] Validation produces a typed value, not a checked `any`
+- [ ] Handlers read the parsed result, not the raw `req.body`
 - [ ] Numeric fields bounded; money is integer minor units
 - [ ] Quantities constrained positive
 - [ ] Cross-field rules expressed in the schema
@@ -125,9 +143,10 @@ the unvalidated value can reach, not by the field itself.
 - **OWASP ASVS 4.0, V5 Validation, Sanitization and Encoding**
   <https://owasp.org/www-project-application-security-verification-standard/>
 - **CWE-20** <https://cwe.mitre.org/data/definitions/20.html>
-- **Zod documentation** — schema parsing and `.strict()` <https://zod.dev/>
-- **NestJS documentation — Validation** — `ValidationPipe` options
-  <https://docs.nestjs.com/techniques/validation>
+- **Zod documentation** — `safeParse`, `.strict()`, and error formatting
+  <https://zod.dev/>
+- **Express 5 documentation — Writing middleware** — boundary validation placement
+  <https://expressjs.com/en/guide/writing-middleware.html>
 
 **Not sourced — written for this framework:** the retail constraint list, the
-detection commands, the parse-don't-check framing, and the commonly-missing list.
+detection commands, the parse-into-req.validated pattern, and the commonly-missing list.

@@ -78,7 +78,7 @@ phantoms, which is stronger than the SQL standard requires.
 exceptional. Without a retry loop, adopting a higher level converts correctness
 into user-visible errors.
 
-```ts
+```js
 async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
   for (let i = 0; ; i++) {
     try { return await fn(); }
@@ -120,8 +120,8 @@ Use sparingly. Many savepoints in a long transaction add overhead, and most ORM
 ### Detection
 
 ```bash
-grep -rnE "BEGIN|transaction\(|\\\$transaction|withTransaction" src/ --include=*.ts
-grep -rnE "(fetch|axios|sendMail|stripe|http)" src/ --include=*.ts | grep -i "transaction"
+grep -rnE "BEGIN|transaction\(|\\\$transaction|withTransaction" src/ --include=*.js
+grep -rnE "(fetch|axios|sendMail|stripe|http)" src/ --include=*.js | grep -i "transaction"
 ```
 
 The second command looks for external calls inside transactions — a reliable

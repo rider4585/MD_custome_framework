@@ -51,7 +51,7 @@ report from an ignored one.
    flaw only matters if untrusted data reaches the parser.
 
 ```bash
-grep -rn "from '<package>'\|require('<package>')" src/ --include=*.ts
+grep -rn "from '<package>'\|require('<package>')" src/ --include=*.js
 ```
 
 Never dismiss a CVE as unreachable without doing this trace — an assumed

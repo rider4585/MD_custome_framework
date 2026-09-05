@@ -32,9 +32,9 @@ security review.
 1. **Find every registration point first.** Do not start with controllers. Start
    with wherever routes attach to the application:
    ```bash
-   grep -rnE "\.(get|post|put|patch|delete|all)\(" src/ --include=*.ts | head -50
-   grep -rnE "@(Get|Post|Put|Patch|Delete|Controller)\(" src/ --include=*.ts | head -50
-   grep -rn "Router\(\)\|registerRoutes\|app.use(" src/ --include=*.ts
+   grep -rnE "\.(get|post|put|patch|delete|all)\(" src/ --include=*.js | head -50
+   grep -rnE "@(Get|Post|Put|Patch|Delete|Controller)\(" src/ --include=*.js | head -50
+   grep -rn "Router\(\)\|registerRoutes\|app.use(" src/ --include=*.js
    ```
    Include every entry point, not only REST: GraphQL resolvers, WebSocket
    handlers, webhook receivers, cron-triggered HTTP calls, and health endpoints.

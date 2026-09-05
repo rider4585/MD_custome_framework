@@ -58,14 +58,14 @@ Use these to locate candidates, then **trace each one** before reporting.
 
 ```bash
 # Injection sinks
-grep -rnE "\\\$\{[^}]*\}|\+ *(req|input|params|body|query)\." src/ --include=*.ts | grep -iE "query|exec|sql"
-grep -rnE "(exec|execSync|spawn)\(" src/ --include=*.ts
+grep -rnE "\\\$\{[^}]*\}|\+ *(req|input|params|body|query)\." src/ --include=*.js | grep -iE "query|exec|sql"
+grep -rnE "(exec|execSync|spawn)\(" src/ --include=*.js
 # Unsafe rendering
-grep -rn "dangerouslySetInnerHTML\|innerHTML" src/ --include=*.tsx --include=*.ts
+grep -rn "dangerouslySetInnerHTML\|innerHTML" src/ --include=*.jsx
 # Deserialization / dynamic evaluation
-grep -rnE "\beval\(|new Function\(|vm\.run|yaml\.load\(" src/ --include=*.ts
+grep -rnE "\beval\(|new Function\(|vm\.run|yaml\.load\(" src/ --include=*.js
 # Missing authorisation around identifier use
-grep -rnE "findByPk|findOne|findUnique|findById" src/ --include=*.ts
+grep -rnE "findByPk|findOne|findAll" src/ --include=*.js
 ```
 
 ### Severity
