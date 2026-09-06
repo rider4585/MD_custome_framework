@@ -41,13 +41,24 @@ than duplicated.
 
 ```
 munder-difflin-agents/
+├── BOOTSTRAP.md             ← point a fresh god agent here to self-install
 ├── GOD-PLAYBOOK.md          ← Michael reads this every session
-├── QUICKSTART.md            ← setup
+├── QUICKSTART.md            ← human setup guide
 ├── agents/<category>/*.md   ← 23 agents: roster entry, skills, objective
 ├── skills/<category>/<name>/SKILL.md   ← 170 skills
 ├── templates/               ← agent and skill templates
 └── bin/install-skills.sh    ← installs skills into an agent
 ```
+
+**Two ways in.** Follow [`QUICKSTART.md`](QUICKSTART.md) yourself, or clone the
+repo and tell your god agent:
+
+> Read `BOOTSTRAP.md` in the framework repo and work through it.
+
+[`BOOTSTRAP.md`](BOOTSTRAP.md) is written for a **stock agent with no framework skills** — it
+assumes nothing, and ends by reporting exactly what still needs you. A full
+self-install is not possible: enabling spawning and creating agents are UI
+actions.
 
 ## The team
 

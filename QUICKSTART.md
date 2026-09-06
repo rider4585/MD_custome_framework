@@ -2,6 +2,14 @@
 
 Getting the framework running in your Munder Difflin hive.
 
+> **Prefer to delegate it?** Clone the repo and tell your god agent:
+> *"Read `BOOTSTRAP.md` in the framework repo and work through it."*
+>
+> [`BOOTSTRAP.md`](BOOTSTRAP.md) is written for a stock agent with no framework
+> skills. It does what it can — installing skills, reading the playbook — then
+> reports precisely what still needs you. Steps 1 and 5 below are always yours:
+> enabling spawning and creating agents are UI actions no agent can perform.
+
 ---
 
 ## Prerequisites

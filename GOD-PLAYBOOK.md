@@ -6,6 +6,11 @@
 This is the routing authority. Where it and an agent's own instructions
 disagree, this wins.
 
+> **First time?** If the framework is not installed yet — you have no framework
+> skills, or `./bin/install-skills.sh --agents` shows agents with no skills —
+> read **[`BOOTSTRAP.md`](BOOTSTRAP.md)** first and work through it. Come back
+> here at its Step 5.
+
 ---
 
 ## 0. The Prime Directive
