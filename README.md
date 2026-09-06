@@ -14,8 +14,10 @@ Munder Difflin ships with generic preconfigured agents. This replaces them with 
 specialised team: security reviewers that know what a POS is, engineers that know
 this stack, and analysts that know retail — each carrying a curated skill set.
 
-It is written to be **reusable**. The `main` branch is a generic greyfield
-framework; a project in a different domain gets its own branch.
+It is written to be **reusable**. This branch (`MD_IMPOC`) is the retail /
+point-of-sale implementation; a project in a different domain gets its own
+branch, keeping the domain-independent skills and swapping the domain-specific
+ones. `main` holds project information only.
 
 ## Two constraints that shaped everything
 
