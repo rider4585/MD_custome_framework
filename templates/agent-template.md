@@ -4,6 +4,23 @@ Copy this to `agents/<category>/<name>.md`. The formats below match what the
 Munder Difflin harness actually reads — verified from a live install, not
 invented.
 
+> ⚠️ **Verified against Munder Difflin v0.4.5 on 2026-09-06. This is a snapshot,
+> not a contract.**
+>
+> Before relying on any format here, check it against the live install — the
+> harness ships `PROTOCOL.md` and `COMMANDS.md` in the hive root, and those
+> update with the app:
+>
+> ```bash
+> cat "$HARNESS_HOME/hive/PROTOCOL.md"
+> cat "$HARNESS_HOME/roster.json" | head -30
+> ls "$HARNESS_HOME/hive/agents/<some-agent>/"
+> ```
+>
+> **If they disagree, the harness wins.** Translate this framework's content into
+> the harness's current format rather than forcing the shape written below, and
+> update this template so the next person is not misled.
+
 > **Key constraint:** `agents/<id>/identity.md` in the hive is **written by the
 > harness and is read-only**. You cannot hand-author an agent's persona there.
 > The harness builds it from the roster entry's `name`, `description` (which

@@ -19,10 +19,30 @@ point-of-sale implementation; a project in a different domain gets its own
 branch, keeping the domain-independent skills and swapping the domain-specific
 ones. `main` holds project information only.
 
+## ⚠️ Formats are a snapshot, not a contract
+
+Every harness-facing format in this repository — roster entries, spawn requests,
+skill locations, message verbs — was verified against **Munder Difflin v0.4.5**
+on **2026-09-06** by reading a live install.
+
+**Munder Difflin is under active development.** If its file layout or formats
+change, do not apply this repository as written. The harness ships its own
+`PROTOCOL.md` and `COMMANDS.md` in the hive root, and **those update with the
+app** — where they disagree with anything here, the harness wins.
+
+The right response to drift is to **translate, not force**: the 170 skills and 23
+agent briefs are documents, and their *content* is independent of how the harness
+packages them. Repackage into the current format, then correct this repo.
+
+`BOOTSTRAP.md` Step 0 makes an agent verify this before it uses any format, with
+a specific checklist.
+
 ## Two constraints that shaped everything
 
 Both were discovered by reading a live Munder Difflin install rather than
 assuming — worth knowing before you extend this.
+
+*(Verified at v0.4.5 — re-check them if the harness has moved on.)*
 
 **1. `identity.md` is written by the harness and is read-only.**
 You cannot hand-author an agent's persona. The harness builds it from the

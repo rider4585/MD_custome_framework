@@ -11,6 +11,14 @@ disagree, this wins.
 > read **[`BOOTSTRAP.md`](BOOTSTRAP.md)** first and work through it. Come back
 > here at its Step 5.
 
+> ⚠️ **Formats are a snapshot, not a contract.** Everything here was verified
+> against **Munder Difflin v0.4.5** (2026-09-06). The harness ships its own
+> `PROTOCOL.md` and `COMMANDS.md` in the hive root, and those **update with the
+> app**. Where they disagree with this playbook, **the harness wins** — follow
+> its current format and translate this framework's content into it, rather than
+> applying what is written here. Report the drift so the framework can be
+> corrected. See `BOOTSTRAP.md` Step 0.
+
 ---
 
 ## 0. The Prime Directive

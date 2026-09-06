@@ -6,6 +6,21 @@ The format is **Claude Code's native `SKILL.md`**, which is what Munder Difflin
 installs into `agents/<id>/.claude/skills/<skill-name>/SKILL.md`. Verified
 against the skills shipped with the harness.
 
+> ⚠️ **Verified against Munder Difflin v0.4.5 on 2026-09-06. This is a snapshot,
+> not a contract.**
+>
+> Confirm the location and frontmatter against a skill the harness itself ships
+> before adding new ones:
+>
+> ```bash
+> ls "$HARNESS_HOME/hive/agents/god/.claude/skills/"
+> head -20 "$HARNESS_HOME/hive/agents/god/.claude/skills/md-hive-sync/SKILL.md"
+> ```
+>
+> **If the location or frontmatter has changed, the harness wins.** The *content*
+> of a skill is independent of its packaging — repackage it and update this
+> template. Do not keep writing files the harness can no longer load.
+
 > **The directory name must equal the `name` in the frontmatter.** Skill names
 > live in a flat namespace, so a name used twice collides — check before adding.
 

@@ -30,6 +30,56 @@ your part, then hand the human a precise list.
 
 ---
 
+## Step 0 — Verify the formats still match ⚠️
+
+**Do this before you use any format from this repository.**
+
+Every format here — roster entries, spawn requests, skill locations, message
+verbs — was verified by reading a live install of **Munder Difflin v0.4.5** on
+**2026-09-06**. That is a **snapshot, not a contract.** The harness is under
+active development and its file layout or formats may have changed since.
+
+**The harness ships its own documentation, and it updates with the app:**
+
+```bash
+cat "$HARNESS_HOME/hive/PROTOCOL.md"     # messaging, spawning, hive layout
+cat "$HARNESS_HOME/hive/COMMANDS.md"     # command reference
+ls "$HARNESS_HOME/hive/"                 # what actually exists now
+ls "$AGENT_DIR/"                         # your own directory layout
+cat "$HARNESS_HOME/roster.json" | head -30
+```
+
+**Those files are authoritative. This repository is not.**
+
+### If they disagree
+
+| Do | Do not |
+|---|---|
+| Follow the **harness's** current format | Apply this repo's format because it is written down |
+| **Translate** this framework's content into the new format | Force the old shape and hope |
+| Report the drift to the human so the framework can be updated | Silently work around it |
+
+Check these specifically, since the framework depends on them:
+
+- [ ] Are skills still at `agents/<id>/.claude/skills/<name>/SKILL.md`?
+- [ ] Is `SKILL.md` frontmatter still `name` / `version` / `description` /
+      `allowed-tools`?
+- [ ] Is `identity.md` still harness-written and read-only?
+- [ ] Are the message `act` verbs still
+      `request | inform | propose | query | agree | refuse | done`?
+- [ ] Is spawning still `spawn-requests/<id>.json` with `objective` + `cwd`?
+- [ ] Does `roster.json` still use the same fields?
+
+**The content is what matters — the 170 skills and 23 agent briefs are
+independent of the harness.** If the packaging has changed, repackage it. A skill
+is a document; where it lives and what its frontmatter looks like is the
+harness's business, not the framework's.
+
+If a format has changed materially, say so in your Step 8 report and do not
+guess at the new one — read the harness's own docs, or ask.
+
+---
+
 ## Step 1 — Locate everything
 
 You need three paths. Establish them before anything else.
