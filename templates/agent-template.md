@@ -43,9 +43,9 @@ Add to `<harnessHome>/roster.json` under `agents`, or create through the UI.
   "character": "office-cast-name",
   "accent": "sky",
   "description": "one line — becomes the role in identity.md",
-  "project": "IMPOC",
+  "project": "Eventina",
   "tmuxTarget": "",
-  "cwd": "/absolute/path/to/repo",
+  "cwd": "/absolute/path/to/eventina-site",
   "status": "idle",
   "action": "awaiting",
   "progress": 0,
@@ -76,7 +76,7 @@ For an ephemeral worker, write one JSON file to
 ```json
 {
   "objective": "What this worker must accomplish. Be specific — this is the agent's brief and it substitutes for a persona file.",
-  "cwd": "/absolute/path/to/repo",
+  "cwd": "/absolute/path/to/eventina-site",
   "name": "DisplayName",
   "command": "claude --model claude-sonnet-5",
   "provider": "claude",
@@ -116,7 +116,7 @@ The reusable brief for spawning this agent. Written in second person, concrete,
 and bounded.
 
 ```
-You are <role> for the IMPOC project (inventory management and point of sale).
+You are <role> for the Eventina portfolio project.
 
 <What you own, in one or two sentences.>
 
