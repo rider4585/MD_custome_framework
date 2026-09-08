@@ -7,6 +7,23 @@ copy, vendor, or ship.
 Verified reachable on **2026-09-07**. Where a project's status changed recently,
 that is noted — the note is the point, not the link.
 
+> ### ⚠️ Coverage note — read this first
+>
+> This bibliography consolidates the sources for the **creative, web, media,
+> discovery, and content packs** (roughly 60 skills), which is the lineage it
+> was written for.
+>
+> The **software-delivery lineage** — `architecture`, `security`, `qa-testing`,
+> `postgresql`, `nodejs-backend`, `react-frontend`, `performance`, `planning`,
+> `uiux`, `design-system`, `business-analytics`, `customer-intelligence`,
+> `marketing`, `retail` — carries its citations **inline in each skill** and has
+> not been consolidated here. Those skills follow the same convention: specific
+> citations, and a closing "Not sourced" note. Read the skill's own References
+> section for them.
+>
+> Consolidating the remaining ~160 skills is outstanding work, and saying so is
+> more useful than a bibliography that silently covers a third of the repo.
+
 > **How to read a citation.** A skill cites *specifically* — "WCAG 2.2 SC 2.3.3
 > Animation from Interactions", not "WCAG". If you cannot check the claim from
 > the citation given, that is a bug in the skill. Report it.
@@ -92,7 +109,7 @@ that is noted — the note is the point, not the link.
 | [Nielsen Norman Group](https://www.nngroup.com/articles/) | Scanning patterns, trust, form usability | Free articles |
 | [Smashing Magazine](https://www.smashingmagazine.com/) | Long-form technique articles, cited per-article | Free |
 | [Google Search Central](https://developers.google.com/search/docs) | Crawling, indexing, structured-data eligibility | CC BY 4.0 |
-| [Google Business Profile Help](https://support.google.com/business/) | Local discovery — a dominant channel for a Latur wedding studio | Free |
+| [Google Business Profile Help](https://support.google.com/business/) | Local discovery — a dominant channel for any local service business | Free |
 
 ## 8. Legal and consent (India)
 
@@ -105,39 +122,32 @@ that is noted — the note is the point, not the link.
 > raises the question and records the client's answer, not so it decides the law.
 > Anything with legal consequence goes to the client with a named human decision.
 
-## 9. Business facts — the client studio
+## 9. Business facts — none, by design
 
-**Gathered 2026-09-08. One fact is verified; everything else is an inference or a
-gap** — see `skills/project-knowledge/project-photographer-brand/SKILL.md`.
+**This branch ships with no client facts, and that is the point.**
 
-| Fact | Source | Status |
-|---|---|---|
-| Instagram handle `@creative_weddings_films_latur` | Supplied directly by the project owner in session, 2026-09-08 | **Verified** |
-| Trading name contains "Creative" | Inferred from the handle | `[to verify]` |
-| Operates in Latur, Maharashtra | Inferred from the handle | `[to verify]` |
-| Sells stills **and** film | Inferred from "films" in the handle | `[to verify]` |
+Facts about a specific client belong in `project-client-brand`, which ships as an
+empty template with the three-state model (verified / `[to verify]` / unknown)
+and the ⛔ Phase 0 gate intact. The orchestrator fills it from the intake
+interview → `project-discovery`.
 
-**The Instagram profile could not be read.** A fetch of
-<https://www.instagram.com/creative_weddings_films_latur/> on 2026-09-08 returned
-only the login wall — no bio, no captions, no counts. Instagram serves a login
-wall to automated fetching.
+The client branches show what a filled version looks like, including the
+uncomfortable case where almost nothing could be verified:
 
-**No corroborating public listing was found.** A web search on 2026-09-08 for the
-handle and for "Creative Weddings Films Latur" returned no Justdial, Sulekha,
-WeddingWire, or equivalent entry for this studio. The Latur wedding-vendor
-listings that did surface —
-[Sulekha](https://www.sulekha.com/wedding-videographers/latur) and
-[5BestInCity](https://ind.5bestincity.com/wedding-photographers-in-latur-mh) —
-name **other** studios and are recorded here only as evidence of the search, not
-as facts about this client.
+- **`MD_eventina`** — eight `[to verify]` facts from a directory listing, zero
+  confirmed by the client, an unreadable Instagram grid
+- **`MD_creative_image_photography`** — exactly one verified fact (a handle
+  supplied by the project owner), three inferences from that handle, and no
+  corroborating public listing found
 
-The archive is therefore **unassessed** and the business is **undocumented in
-public sources**. `project-content-inventory` treats both as blocking gaps to be
-filled by a human with account access.
+Both are worth reading before filling this file for a new client. The failure
+mode they document — plausible facts hardening into published ones — is the
+reason the three-state model exists.
 
 ## 10. Photography-craft sources
 
-Cited specifically in the seven `skills/photography-craft/` skills.
+Cited specifically in the seven `skills/photography-craft/` skills — a **vertical
+pack**, installed only when the domain fits → `PACKS.md`.
 
 | Source | Used for | Licence / access |
 |---|---|---|
@@ -159,7 +169,24 @@ Cited specifically in the seven `skills/photography-craft/` skills.
 
 ---
 
-**Not sourced — written for this framework:** the emotion-per-shoot-type model,
+## 11. This framework's own documents
+
+| Document | Covers |
+|---|---|
+| `BOOTSTRAP.md` | The orchestrator's install and onboarding sequence |
+| `GOD-PLAYBOOK.md` | Standing operating procedure, routing, severity, escalation |
+| `PACKS.md` | The pack manifest and an honest note on example specificity |
+| `templates/` | Skill and agent formats, verified against a live harness install |
+
+All four are **original to this framework** and cite the harness only.
+
+---
+
+**Not sourced — written for this framework:** the two-phase blocking model
+(Phase −1 onboarding, Phase 0 discovery), the intake interview and its six
+sections, the four-pass personalisation model, the three-tier pack taxonomy, the
+twelve-skills-per-agent target, the three tests for adding an agent, the
+emotion-per-shoot-type model,
 the eight-axis signature tally and the mixed-grid test, the five-movement wedding
 arc and the Indian multi-day function table, the five-rung film ladder and the
 four-route music policy, the pricing disclosure ladder, the client-gallery

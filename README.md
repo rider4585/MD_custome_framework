@@ -1,25 +1,38 @@
-# munder-difflin-agents — `MD_creative_image_photography`
+# munder-difflin-agents — `MD_generic`
 
 An agent and skill framework for the
 [Munder Difflin](https://github.com/chaitanyagiri/munder-difflin) multi-agent
-harness, built for **high-end photography portfolio websites** — and configured
-for a **wedding and function photographer and videographer** in Latur,
-Maharashtra ([`@creative_weddings_films_latur`](https://www.instagram.com/creative_weddings_films_latur/)).
+harness. **Domain-neutral by design**: it ships knowing how to do the work well
+in general, and learns your project by asking you.
 
-**45 skills · 10 agents · one orchestrator playbook**
+**219 skills · 33 agents · 23 packs · an onboarding interview that specialises
+all of it**
 
 ---
 
 ## What this is
 
-A specialised team for building a portfolio site whose job is to make **the right
-couples enquire** — couples who want *this* photographer, not *a* photographer.
-Not a generic web-build framework: the skills are written for the specific
-problems of a photographer's site — finding the signature hidden in four thousand
-frames and culling to twelve, keeping a grid's colour grade consistent,
-presenting a wedding film that only works with sound on a page nobody will
-unmute, clearing the music before it earns a takedown, publishing photographs of
-wedding guests lawfully, and turning a beautiful page into a booked date.
+The other branches in this repository are each built for one client. This one is
+built for **the next** client — a superset of the skills and agents, with the
+project-specific facts stripped out and replaced by the machinery for asking.
+
+### How it works
+
+```
+1. Install          the orchestrator installs the onboarding pack into itself
+2. INTERVIEW        it asks YOU: what is this, for whom, what domain, what is
+                    explicitly not in scope                    ← the whole point
+3. Personalise      it selects packs, fills project-knowledge, rewrites the
+                    worked examples into your domain, retunes agent objectives
+4. Phase 0          discovery agents document what already exists
+5. Work             everything else
+```
+
+**Steps 2 and 3 are blocking.** An orchestrator that skips them and infers your
+project from the repository will be plausibly wrong, and every agent downstream
+inherits the error without ever seeing the assumption that produced it.
+
+A repository tells you what was built. It does not tell you what it is *for*.
 
 ### Branch model
 
@@ -28,15 +41,12 @@ wedding guests lawfully, and turning a beautiful page into a booked date.
 | `main` | Project README only |
 | `MD_IMPOC` | Retail / point-of-sale — 170 skills, 23 agents |
 | `MD_eventina` | Event-organiser portfolio — 38 skills, 8 agents |
-| **`MD_creative_image_photography`** | **Photography & film portfolio — this branch** |
+| `MD_creative_image_photography` | Photography & film portfolio — 45 skills, 10 agents |
+| **`MD_generic`** | **Domain-neutral superset — this branch** |
 
-Branched from `MD_eventina`, which shares the photograph-led portfolio problem.
-The creative, web-craft, media, discovery, and quality skills carried across and
-were retuned; the four Eventina project-knowledge skills were replaced, and the
-**seven `photography-craft` skills and two agents are new** — they cover what a
-photographer's site needs and an event organiser's does not: the signature, the
-day's narrative beats, films and their music licences, delivery galleries,
-packages, image rights, and the vendor referral network.
+This branch merges `MD_IMPOC` and `MD_creative_image_photography`. **Start new
+projects here**; the client branches are the record of how a specialised
+framework ended up looking, and are useful as worked examples of step 3.
 
 ## ⚠️ Formats are a snapshot, not a contract
 
@@ -47,57 +57,58 @@ locations, message verbs — was verified against **Munder Difflin v0.4.5** on
 **Munder Difflin is under active development.** The harness ships its own
 `PROTOCOL.md` and `COMMANDS.md` in the hive root, and **those update with the
 app** — where they disagree with anything here, the harness wins. The right
-response to drift is to **translate, not force**: these 38 skills are documents,
-and their content is independent of how the harness packages them.
+response to drift is to **translate, not force**: these skills are documents, and
+their content is independent of how the harness packages them.
 
 Two constraints that shaped the repository, both discovered from a live install:
 
 1. **`identity.md` is written by the harness and is read-only.** You cannot
    hand-author an agent's persona. An agent's expertise comes from **the skills
    installed into its `.claude/skills/`** plus **the `objective` given at spawn
-   time**. That is why this repo is mostly skills.
+   time**. That is why this repo is mostly skills, and why personalisation
+   pass 4 rewrites objectives.
 2. **Skills are Claude Code's native `SKILL.md`, in a flat namespace** —
    `agents/<id>/.claude/skills/<name>/SKILL.md`. Names must be globally unique.
 
 ## Layout
 
 ```
-├── SOURCES.md                        ← consolidated bibliography, with licences
-├── GOD-PLAYBOOK.md                   ← the creative director reads this each session
+├── BOOTSTRAP.md                      ← START HERE if you are the orchestrator
+├── GOD-PLAYBOOK.md                   ← the orchestrator reads this each session
+├── PACKS.md                          ← which skills exist for which project
 ├── QUICKSTART.md                     ← human setup guide
-├── agents/<category>/*.md            ← 10 agents: roster entry, skills, objective
-├── skills/<category>/<name>/SKILL.md ← 45 skills
+├── SOURCES.md                        ← consolidated bibliography, with licences
+├── agents/<category>/*.md            ← 33 agents: roster entry, skills, objective
+├── skills/<category>/<name>/SKILL.md ← 219 skills across 23 packs
 ├── templates/                        ← agent and skill templates
 └── bin/install-skills.sh             ← installs skills into an agent
 ```
 
-## The team
+## The onboarding pack
 
-| Category | Agent | Owns |
-|---|---|---|
-| **Management** | `creative-director` | The signature, the emotional brief, the quality bar, the sequence |
-| **Creative** | `brand-strategist` | Positioning, story spine, voice |
-| | `art-director` | Image sequencing, layout, type, colour, motion |
-| | `cinematographer` | **New** — the film ladder, playback, sound, music licensing |
-| | `content-writer` | Interviews, case studies, microcopy, alt text |
-| **Engineering** | `astro-engineer` | The Astro build, content model, CSS, CMS, deploy |
-| | `media-engineer` | Ingest, EXIF, rights metadata, transcoding, consent records |
-| **Quality** | `experience-qa` | Accessibility, Core Web Vitals, devices, launch gate |
-| **Growth** | `discovery-specialist` | Structured data, local listings, venue pages, sharing |
-| | `client-experience-lead` | **New** — pricing, process, enquiry, delivery, referrals |
+Three skills, installed on the orchestrator only. They are the difference
+between this branch and a pile of good documents.
 
-## The skills
+| Skill | Does |
+|---|---|
+| `project-discovery` | The intake interview — six sections, one batched message, `unknown` recorded rather than guessed |
+| `framework-personalisation` | Four passes: select packs → fill project-knowledge → **re-example** → retune objectives |
+| `agent-roster-design` | Which of the 33 agents this project actually needs, and when a role should be a skill instead |
 
-| Category | # | Covers |
-|---|---|---|
-| `photography-craft` | **7** | **Signature, story arc, films, delivery, packages, rights, referrals** |
-| `creative-direction` | 7 | Emotion mapping, art direction, layout, type, colour, motion |
-| `web-craft` | 7 | Astro, content collections, islands, CMS, transitions, CSS, deploy |
-| `media-pipeline` | 6 | Optimisation, curation, video, galleries, consent, asset workflow |
-| `experience-quality` | 5 | Accessibility, Core Web Vitals, budgets, devices, launch |
-| `discovery` | 5 | SEO, structured data, local listings, sharing, enquiry conversion |
-| `content-story` | 4 | Case studies, copywriting, testimonials, multilingual |
-| `project-knowledge` | 4 | The studio's verified facts, catalogue, inventory, architecture |
+Their output lands in `project-context` — the root file every other agent reads
+first, every session.
+
+## The packs
+
+| Tier | Packs |
+|---|---|
+| **Always** | `project-context`, `project-client-brand`, and `onboarding` on the orchestrator |
+| **Core** | `planning`, `architecture`, `security`, `qa-testing`, `performance`, `uiux`, `design-system`, `experience-quality`, `content-story`, `creative-direction`, `discovery`, `media-pipeline`, `project-knowledge` |
+| **Stack** | `nodejs-backend`, `react-frontend`, `postgresql`, `web-craft` |
+| **Vertical** | `retail`, `photography-craft`, `business-analytics`, `customer-intelligence`, `marketing` |
+
+**See [`PACKS.md`](PACKS.md)** for what each contains, when to install it, and an
+honest note on how domain-flavoured its worked examples are.
 
 `./bin/install-skills.sh --list` prints the full index.
 
@@ -115,86 +126,41 @@ practice from this framework's opinions, and nothing here asks to be taken on
 trust without a citation. **[`SOURCES.md`](SOURCES.md)** is the consolidated
 bibliography with licences.
 
-Skills are written **stack-agnostically** where the principle outlives the tool,
-with the current stack as the worked example.
-
-## Current stack
-
-**Astro** (static output) · content collections with Zod schemas · **Sveltia CMS**
-(git-backed, MIT) · self-hosted open-licence fonts · sharp/libvips at build time ·
-Playwright + axe-core for verification · cookieless analytics.
-
-Two research findings shaped these choices, both verified 2026-09-07:
-
-- **Decap CMS maintenance has been intermittent.**
-  [Sveltia CMS](https://github.com/sveltia/sveltia-cms) is actively developed and
-  reads Decap config as-is, so it is the recommended runtime with the config
-  format kept portable.
-- **GSAP became free for commercial use in April 2025 but is not open source.**
-  Since open-source resources were a requirement, native CSS scroll-driven
-  animations and [Motion](https://motion.dev/) (MIT) lead the motion guidance.
+Skills are written **principles first, one domain as the worked example**. The
+principle is portable; the example is not — which is exactly what
+personalisation pass 3 exists to fix.
 
 ## The rules that recur
 
-These appear throughout because they are what a portfolio site gets wrong
-expensively:
-
-- **A portfolio without a signature is a competence display**, and a competence
-  display competes only on price
-- **Selection is the premium signal.** Eight weddings shown properly beats forty
-  in a grid
-- **The frame that gets a photographer hired is the aftermath frame** — the one
-  taken ten seconds after the moment every guest also photographed
-- **A portfolio cannot out-design its photography.** If the archive has no
-  consistent look, report it — no grid or typeface creates one
-- **No problem, no case study.** Without a difficulty and a decision it is a
-  gallery — publish it as one
-- **Consent is a build gate, not a courtesy.** India's DPDP Rules were notified
-  in November 2025
-- **Music licensing is a build gate too.** A commercial track on a published
-  wedding film is commercial use, and crediting the artist has no legal effect
-- **Abundance is not readiness.** Eighty thousand frames and zero publishable
-  case studies is the normal starting position
-- **Delivery galleries are a separate system** from the marketing site, on a
-  separate host, `noindex`, never in the sitemap
-- **The images are the design.** Layout, type, and colour exist to not damage
-  them
-- **Motion must reveal structure or relationship**, and every animation ships
-  with its reduced-motion variant
-- **The LCP image is never lazy-loaded**
+- **Ask, do not infer.** The domain, the audience, the client's facts, the
+  business rules — none of these are derivable from a repository
+- **Lean beats complete.** Twelve skills per agent. An agent with sixty reads
+  worse at everything, and nothing errors to tell you
 - **The agent that writes a fix never verifies it**
-- **The audience is a mid-range Android on mobile data**, often inside the
-  Instagram in-app browser
-
-## ⛔ Phase 0 is blocking
-
-**Exactly one fact about this client is verified: the Instagram handle.**
-Everything else in
-[`project-photographer-brand`](skills/project-knowledge/project-photographer-brand/SKILL.md)
-is an inference or a question. The trading name, the location, and even whether
-film is sold as a product are **inferences from a username** — the grid could not
-be read, because Instagram serves a login wall to automated fetches, and a web
-search on 2026-09-08 found no directory listing corroborating the business.
-
-**Nothing marked `[to verify]` may be published.** Not in copy, not in structured
-data, not in a page title, and above all not in a price. An agent that needs an
-unverified fact omits it, marks the gap, and escalates.
-
-This is deliberate and it is the rule most likely to be argued with. A wrong
-trading name reaches every page title, the `LocalBusiness` markup, and the
-copyright line embedded in every published image.
+- **Phase 0 is blocking.** No code written against guessed conventions
+- **Never publish an unverified fact about a client.** Verified / `[to verify]` /
+  unknown, and only the first ships
+- **Batch questions to the human.** Trickling them out is how discovery fails
+- **`unknown` is a valid answer; a guess is not**
+- **Content is the critical path on client work**, not development
+- **Personalise the hive copies, never the repository** — or every project ends
+  up looking like the last one
 
 ## Getting started
 
-See **[QUICKSTART.md](QUICKSTART.md)**. The short version:
+**If you are the orchestrator agent:** read **[BOOTSTRAP.md](BOOTSTRAP.md)** and
+work through its twelve steps. Step 6 is the interview.
+
+**If you are a human:** see **[QUICKSTART.md](QUICKSTART.md)**. The short
+version:
 
 ```bash
 ./bin/install-skills.sh --agents          # what's in your hive
 ./bin/install-skills.sh --list            # what's available
-./bin/install-skills.sh creative-director signature-style emotional-brief
+./bin/install-skills.sh <orchestrator-id> project-discovery framework-personalisation agent-roster-design project-context
 ```
 
-Then have the creative director read [`GOD-PLAYBOOK.md`](GOD-PLAYBOOK.md).
+Then restart the orchestrator and point it at [`BOOTSTRAP.md`](BOOTSTRAP.md).
 
 **Before anything works:** enable `orchestratorMaySpawn` in
 Settings → Autonomy & Budgets. It is off by default, and without it the

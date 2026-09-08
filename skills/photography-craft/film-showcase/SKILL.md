@@ -28,7 +28,7 @@ frames, autoplay policy, and the performance budget, use `video-on-web` — this
 skill assumes those rules and does not repeat them.
 
 > **Before running anything:** load `video-on-web` for the delivery constraints,
-> and `project-photographer-brand` for whether film is actually a service being
+> and `project-client-brand` for whether film is actually a service being
 > sold or an occasional add-on. The answer changes the entire site structure.
 
 ### Method

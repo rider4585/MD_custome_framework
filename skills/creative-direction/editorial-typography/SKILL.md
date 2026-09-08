@@ -5,7 +5,7 @@ description: |
   Build a display-led type system for a portfolio — pairing, fluid scale, optical
   sizing, and Devanagari support alongside Latin. Use when setting up typography
   for a portfolio or marketing site, when headlines look weak at large sizes, or
-  when adding Marathi or Hindi text to a Latin-first design.
+  when adding <the local language> or Hindi text to a Latin-first design.
 allowed-tools:
   - Read
   - Write
@@ -21,8 +21,8 @@ optimises for one enormous headline and a small amount of very readable prose.**
 The rules differ enough that applying UI type guidance to a portfolio produces
 timid, forgettable pages.
 
-> **Before running anything:** confirm from `project-photographer-brand` whether the
-> site ships Marathi or Hindi content. Devanagari support changes the font
+> **Before running anything:** confirm from `project-client-brand` whether the
+> site ships <the local language> or Hindi content. Devanagari support changes the font
 > selection entirely and cannot be retrofitted cheaply.
 
 ### Method
@@ -104,7 +104,7 @@ visible ragging faults; both degrade silently where unsupported.
 
 ### Devanagari alongside Latin
 
-Marathi is written in Devanagari, and it is **not** a drop-in substitution.
+<the local language> is written in Devanagari, and it is **not** a drop-in substitution.
 
 - **Devanagari needs more vertical space.** The shirorekha (top bar) plus
   above/below marks mean matras collide at Latin leading. Add 0.1–0.2 to line
@@ -124,7 +124,7 @@ Marathi is written in Devanagari, and it is **not** a drop-in substitution.
 
 :root {
   --font-body: 'Instrument Sans', 'Mukta', system-ui, sans-serif;
-  --font-display: 'Fraunces', 'Tiro Devanagari Marathi', Georgia, serif;
+  --font-display: 'Fraunces', 'Tiro Devanagari <the local language>', Georgia, serif;
 }
 
 :lang(mr), :lang(hi) { line-height: 1.7; }
@@ -137,11 +137,11 @@ and vice versa — the browser fetches only what the page actually uses.
 
 | Face | Use | Note |
 |---|---|---|
-| [Tiro Devanagari Marathi](https://fonts.google.com/specimen/Tiro+Devanagari+Marathi) | Display / literary | Drawn for Marathi specifically, has an italic |
+| [Tiro Devanagari <the local language>](https://fonts.google.com/specimen/Tiro+Devanagari+<the local language>) | Display / literary | Drawn for <the local language> specifically, has an italic |
 | [Mukta](https://fonts.google.com/specimen/Mukta) | UI and body | Humanist, 7 weights |
 | [Noto Sans Devanagari](https://fonts.google.com/noto/specimen/Noto+Sans+Devanagari) | Fallback | Widest coverage |
 
-Marathi uses some conventions that differ from Hindi (e.g. the eyelash *ḷa*).
+<the local language> uses some conventions that differ from Hindi (e.g. the eyelash *ḷa*).
 **Have a native reader check rendered output** — no automated check catches this.
 
 ### Loading
@@ -170,7 +170,7 @@ grep -rnE 'font-size:\s*[0-9.]+px' src/ --include=*.css          # px sizing
 grep -rnE 'clamp\([^)]*vw[^)]*\)' src/ --include=*.css | grep -v rem  # vw-only clamp
 grep -rn 'fonts.googleapis.com' src/                              # not self-hosted
 grep -rn 'rel="preload"' src/ | grep 'as="font"' | grep -v crossorigin
-grep -rn 'lang=' src/ --include=*.astro | head                    # lang on Marathi blocks
+grep -rn 'lang=' src/ --include=*.astro | head                    # lang on <the local language> blocks
 du -ch public/fonts/*.woff2 2>/dev/null | tail -1                 # font budget
 ```
 
@@ -214,7 +214,7 @@ du -ch public/fonts/*.woff2 2>/dev/null | tail -1                 # font budget
 - **Fontsource — self-hosting open-licence fonts** <https://fontsource.org/>
 - **Modern Font Stacks — zero-byte system stacks**
   <https://modernfontstacks.com/>
-- **Tiro Typeworks — Tiro Devanagari Marathi**, on its design for Marathi and its
+- **Tiro Typeworks — Tiro Devanagari <the local language>**, on its design for <the local language> and its
   OFL release <https://www.tiro.com/fonts/tiro-devanagari-marathi>
 - **Butterick's *Practical Typography*** — measure, leading, restraint
   <https://practicaltypography.com/>

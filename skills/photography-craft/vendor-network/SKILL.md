@@ -24,7 +24,7 @@ the one websites are usually designed to ignore.**
 This skill is about designing the site for a second audience — vendors — without
 compromising the first.
 
-> **Before running anything:** load `project-photographer-brand` for the vendors
+> **Before running anything:** load `project-client-brand` for the vendors
 > this studio actually works with. **Never list a venue or vendor the studio has
 > not worked with**; it is a false claim of association and vendors notice.
 

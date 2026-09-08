@@ -80,7 +80,7 @@ full workflow; the minimum here:
 testimonial:
   quote: "..."
   author: "Sonal Deshmukh"
-  event: "Wedding, Latur"
+  event: "Wedding, <the city>"
   date: 2026-02-14
   consent:
     quote: true          # to publish the words

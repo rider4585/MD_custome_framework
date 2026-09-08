@@ -66,21 +66,21 @@ const business = {
   "@type": "LocalBusiness",
   "@id": "https://studio.example/#business",
   "name": "the studio",
-  "description": "Wedding photography and films in Latur, Maharashtra.",
+  "description": "Wedding photography and films in <the city>, Maharashtra.",
   "url": "https://studio.example/",
   "telephone": "+91XXXXXXXXXX",
   "email": "hello@studio.example",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Kailash Plaza, Beside Manas Hotel, Barshi Road, Ganj Golai",
-    "addressLocality": "Latur",
+    "addressLocality": "<the city>",
     "addressRegion": "Maharashtra",
     "postalCode": "413512",
     "addressCountry": "IN"
   },
   "geo": { "@type": "GeoCoordinates", "latitude": 0, "longitude": 0 },
   "areaServed": [
-    { "@type": "City", "name": "Latur" },
+    { "@type": "City", "name": "<the city>" },
     { "@type": "State", "name": "Maharashtra" }
   ],
   "foundingDate": "2016",
@@ -94,7 +94,7 @@ const business = {
 ```
 
 **Every value must be verified before publishing.** Address, phone, and founding
-date in `project-photographer-brand` are currently `[to verify]` from a directory
+date in `project-client-brand` are currently `[to verify]` from a directory
 listing — publishing an unverified address in structured data is worse than
 publishing none, because it can propagate.
 
@@ -157,7 +157,7 @@ Video is the other reliably visible rich result available here.
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Priya & Rohan — Wedding Film",
-  "description": "A four-minute highlight film from a two-day wedding in Latur.",
+  "description": "A four-minute highlight film from a two-day wedding in <the city>.",
   "thumbnailUrl": ["https://studio.example/films/priya-rohan-poster.jpg"],
   "uploadDate": "2026-03-14T00:00:00+05:30",
   "duration": "PT4M12S",                       // ISO 8601 — PT4M12S, not "4:12"

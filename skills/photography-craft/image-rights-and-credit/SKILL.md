@@ -26,7 +26,7 @@ The framing that matters: **you cannot stop copying, so optimise for
 traceability and credit instead.** Every measure below is judged by whether it
 survives a screenshot, a repost, and a reupload.
 
-> **Before running anything:** load `project-photographer-brand` for who actually
+> **Before running anything:** load `project-client-brand` for who actually
 > owns the copyright in this studio's work. Ownership between a studio, a
 > second shooter, and a couple is contractual and cannot be assumed.
 

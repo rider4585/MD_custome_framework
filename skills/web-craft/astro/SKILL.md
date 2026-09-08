@@ -133,7 +133,7 @@ const { Content } = await render(event);
 ---
 // src/layouts/Base.astro
 interface Props { title: string; description?: string; }
-const { title, description = 'Wedding photography and films in Latur' } = Astro.props;
+const { title, description = 'Wedding photography and films in <the city>' } = Astro.props;
 ---
 <html lang="en">
   <head>

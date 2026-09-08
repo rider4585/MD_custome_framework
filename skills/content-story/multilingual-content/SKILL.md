@@ -2,7 +2,7 @@
 name: multilingual-content
 version: 1.0.0
 description: |
-  Ship a site in Marathi/Hindi alongside English without the localisation being
+  Ship a site in <the local language> alongside English without the localisation being
   an afterthought — language markup, register, routing, fonts, and structured
   data. Use when a site targets a regional Indian market, when adding a second
   language, or when deciding whether to translate at all.
@@ -16,8 +16,8 @@ allowed-tools:
 
 ## Multilingual Content
 
-For a business in Latur, the language question is not "should we translate the
-English site". Many customers read Marathi comfortably and English adequately,
+For a business in a multilingual market, the language question is not "should we translate the
+English site". Many customers read <the local language> comfortably and English adequately,
 and **the language a premium service uses is itself a positioning signal** —
 English can read as aspirational or as distant, depending on the customer.
 
@@ -42,13 +42,13 @@ are affected.
 | Strategy | When | Cost |
 |---|---|---|
 | **English only** | Customers are comfortable in English; budget is tight | Lowest. Risks reading as distant to some of the market |
-| **English site, Marathi accents** | Use Marathi for emotive words the audience owns — *लग्न*, *संगीत*, *हळद* — inside English copy | Low, and often the best value. Signals local fluency without a full second site |
-| **Full bilingual** | Marathi is a primary reading language for a large share of enquiries | Highest. Doubles content, review, and CMS work — *forever*, not once |
-| **Marathi-first, English secondary** | The premium local market reads Marathi and competitors are all in English | Differentiating, rarely chosen |
+| **English site, <the local language> accents** | Use <the local language> for emotive words the audience owns — *लग्न*, *संगीत*, *हळद* — inside English copy | Low, and often the best value. Signals local fluency without a full second site |
+| **Full bilingual** | <the local language> is a primary reading language for a large share of enquiries | Highest. Doubles content, review, and CMS work — *forever*, not once |
+| **<the local language>-first, English secondary** | The premium local market reads <the local language> and competitors are all in English | Differentiating, rarely chosen |
 
-**Recommend "English site, Marathi accents" as the default** unless the client
-has evidence of Marathi-preferring enquiries. A half-maintained second language
-— stale Marathi pages behind a fresh English site — is worse than one language
+**Recommend "English site, <the local language> accents" as the default** unless the client
+has evidence of <the local language>-preferring enquiries. A half-maintained second language
+— stale <the local language> pages behind a fresh English site — is worse than one language
 done well. That is the failure mode to avoid.
 
 ### Language markup
@@ -87,12 +87,12 @@ src/pages/
 - **Never auto-redirect by IP or `Accept-Language`.** It traps users and blocks
   crawlers. Offer a persistent, visible switcher instead.
 - **The switcher must go to the equivalent page**, not to the home page. Sending
-  a reader from a case study to the Marathi home page is the most common and most
+  a reader from a case study to the <the local language> home page is the most common and most
   irritating bug in bilingual sites.
 
 ### Register
 
-Marathi and Hindi encode the client relationship grammatically. This is a
+<the local language> and Hindi encode the client relationship grammatically. This is a
 decision, not a default:
 
 - **आपण / आपली** — formal, respectful. Right for addressing a customer.
@@ -118,7 +118,7 @@ Serve Devanagari via a `unicode-range`-scoped `@font-face` so English-only
 readers never download it.
 
 **Have a native reader check rendered output on a real Android device.**
-Conjunct forms and the Marathi eyelash *ḷa* render differently across platforms,
+Conjunct forms and the <the local language> eyelash *ḷa* render differently across platforms,
 and no automated test catches it.
 
 ### Content model
@@ -140,7 +140,7 @@ build time — the check that prevents the stale-second-language failure.
 
 - `inLanguage` on `Event` and `LocalBusiness` schema.
 - Translate `<title>`, meta description, and Open Graph tags. An English OG
-  description on a Marathi page is a common oversight; see `social-sharing`.
+  description on a <the local language> page is a common oversight; see `social-sharing`.
 - `og:locale` and `og:locale:alternate`.
 
 ### Detection
@@ -160,7 +160,7 @@ grep -rn 'Accept-Language\|geoip' src/                              # auto-redir
 - **A second language doubles maintenance forever.** Make sure the client
   understands they are committing to updating both, and build the
   untranslated-page check so drift is visible.
-- **Latur is Marathi-speaking, but the wedding market may include
+- **the local market may read <the local language>, but the wedding market may include
   Hindi-preferring families.** Ask; do not assume from geography.
 - **The CMS must support the second language too.** Sveltia CMS has first-class
   i18n; Decap's is weaker. See `git-cms`.
@@ -191,12 +191,12 @@ grep -rn 'Accept-Language\|geoip' src/                              # auto-redir
   <https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang>
 - **MDN — `unicode-range` for script-scoped font loading**
   <https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range>
-- **Google Fonts — Mukta, Noto Sans Devanagari, Tiro Devanagari Marathi** (all
+- **Google Fonts — Mukta, Noto Sans Devanagari, Tiro Devanagari <the local language>** (all
   SIL OFL 1.1) <https://fonts.google.com/?subset=devanagari>
 - **Astro docs — internationalization routing**
   <https://docs.astro.build/en/guides/internationalization/>
 
 **Not sourced — written for this framework:** the four-strategy table and the
-recommendation of "English with Marathi accents", the stale-second-language
+recommendation of "English with <the local language> accents", the stale-second-language
 failure-mode argument, the `translationOf` build-time check, and the detection
 commands.

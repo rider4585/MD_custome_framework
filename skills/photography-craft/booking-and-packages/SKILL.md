@@ -23,7 +23,7 @@ the couple a disappointment.
 The single decision that governs this page is whether to publish prices. Most
 studios avoid it, and most of them are wrong about why.
 
-> **Before running anything:** load `project-photographer-brand` for the real
+> **Before running anything:** load `project-client-brand` for the real
 > package structure and prices. **Never invent a price, a package name, or an
 > availability claim.** A wrong number on a pricing page is a commercial and
 > reputational problem, not a placeholder.
@@ -154,7 +154,7 @@ wizard, and a confirmation that states what happens next and by when →
 - **Every number on this page belongs to the client.** This skill structures the
   presentation; it does not set prices, and an agent must never estimate one.
 - **Market norms vary enormously by region and community.** What qualifies as a
-  premium price in Latur is not what it is in Mumbai; do not import assumptions.
+  premium price in <the city> is not what it is in Mumbai; do not import assumptions.
 - **Level 0 can be correct** for a studio doing very high-value bespoke work with
   no standard offer. Argue for disclosure, then defer.
 - **The three-tier structure is a convention, not a law.** A studio with one

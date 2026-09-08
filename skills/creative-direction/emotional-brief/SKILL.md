@@ -24,7 +24,7 @@ warm filter — because that tells the visitor the company has one move.
 The job of this skill is to make the *difference between event types visible* in
 the design itself, before anyone writes CSS.
 
-> **Before running anything:** load `project-shoot-catalogue` for the event types
+> **Before running anything:** load `project-service-catalogue` for the event types
 > this client actually sells. Do not design for categories they do not run.
 
 ### Method
@@ -88,7 +88,7 @@ disagree with the arrow rather than with the taste.
 
 ### Caveats
 
-- **This model is a hypothesis about a market you may not know.** Latur wedding
+- **This model is a hypothesis about a market you may not know.** <the city> wedding
   culture is not Mumbai wedding culture. Test the mapping against the client's
   own photographs before treating any row as settled.
 - **Emotion does not override accessibility.** "Reverence" is not a reason for

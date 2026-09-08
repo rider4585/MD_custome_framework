@@ -17,7 +17,7 @@ allowed-tools:
 ## Cross-Device Testing
 
 The developer's laptop is the least representative device in the audience. For a
-Latur event company, the realistic visitor is on a **mid-range Android phone,
+<the city> event company, the realistic visitor is on a **mid-range Android phone,
 often over mobile data, frequently arriving from an Instagram in-app browser.**
 
 That last one matters more than people expect and is almost never tested.

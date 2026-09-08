@@ -24,7 +24,7 @@ the gallery had a **look**, and the look was consistent enough to be a promise.
 A portfolio without a signature is a competence display. A competence display
 competes only on price.
 
-> **Before running anything:** load `project-photographer-brand`. The signature
+> **Before running anything:** load `project-client-brand`. The signature
 > is a claim about a real person's work — it must be derived from their actual
 > photographs and confirmed by them, never assigned by a designer.
 
@@ -40,7 +40,7 @@ competes only on price.
 4. **Find the refusal.** Every real style is defined as much by what it excludes.
    A photographer who cannot name a shot they will not take has no style yet.
 5. **Test it destructively** — see "The mixed-grid test" below.
-6. **Write it into `project-photographer-brand`**, and make every culling
+6. **Write it into `project-client-brand`**, and make every culling
    decision answer to it → `photo-curation`.
 
 ### The axes to tally
@@ -160,7 +160,7 @@ upstream of the website.
 - [ ] The refusal named, in the photographer's own words
 - [ ] Mixed-grid test run with three naive sorters, result recorded
 - [ ] A failed test reported as a finding, not hidden by design
-- [ ] Signature confirmed by the photographer, dated, in `project-photographer-brand`
+- [ ] Signature confirmed by the photographer, dated, in `project-client-brand`
 - [ ] Culling, grading, and gallery decisions all trace back to it
 - [ ] A rule written for how new work is admitted after launch
 

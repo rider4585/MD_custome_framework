@@ -68,10 +68,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 | `<h1>` | One per page | May differ from the title |
 
 ```
-Home:       the studio — Wedding Photographer & Filmmaker in Latur
-Work index: Our Work — 12 Weddings and Events in Latur | the studio
-Case study: The Sharma Wedding, Latur — 310 Guests, One Venue Change
-Service:    Wedding Planning in Latur | the studio
+Home:       the studio — Wedding Photographer & Filmmaker in <the city>
+Work index: Our Work — 12 Weddings and Events in <the city> | the studio
+Case study: The Sharma Wedding, <the city> — 310 Guests, One Venue Change
+Service:    Wedding Planning in <the city> | the studio
 ```
 
 **Put the distinguishing words first.** Titles truncate, and "the studio
@@ -163,7 +163,7 @@ grep -rhoP '(?<=<title>).*?(?=</title>)' dist/**/*.html | awk 'length > 60'
 - **A new domain takes months.** Set the expectation, or the client will conclude
   the site failed after three weeks.
 - **Do not write for search engines.** Copy stuffed with "best wedding planner in
-  Latur" damages the premium positioning that is the point of the site →
+  <the city>" damages the premium positioning that is the point of the site →
   `brand-narrative`.
 - **Ranking is not the goal; enquiries are.** Ten visitors who call beat a
   thousand who bounce → `enquiry-conversion`.

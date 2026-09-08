@@ -1,141 +1,146 @@
 # Quickstart
 
-Setting up the `MD_creative_image_photography` framework in a Munder Difflin
-hive. About 30
-minutes, most of it waiting for agents to start.
+Setting up the `MD_generic` framework in a Munder Difflin hive. About 30 minutes,
+plus the intake interview.
+
+**This branch ships domain-neutral.** Setup is: install → the orchestrator
+interviews you → it personalises everything → work begins. Steps 5 and 6 below
+are the ones that matter.
 
 ---
 
-## 0. Verify the formats first
-
-**Do this before anything else.** The formats in this repository were verified
-against Munder Difflin v0.4.5 on 2026-09-06. If the app has moved on, the harness
-wins.
-
-```bash
-export HARNESS_HOME="$(python3 -c "import json,os;print(json.load(open(os.path.expanduser('~/Library/Application Support/munder-difflin/config.json')))['harnessHome'])")"
-echo "$HARNESS_HOME"
-
-cat "$HARNESS_HOME/hive/PROTOCOL.md" | head -60
-head -30 "$HARNESS_HOME/roster.json"
-ls "$HARNESS_HOME/hive/agents/"
-ls "$HARNESS_HOME/hive/agents/god/.claude/skills/" 2>/dev/null
-```
-
-Check three things:
-
-- [ ] Skills still live at `agents/<id>/.claude/skills/<name>/SKILL.md`
-- [ ] `roster.json` still has `id`, `name`, `character`, `description`, `cwd`,
-      `command`, `provider`, `model`
-- [ ] Message `act` verbs are still `request | inform | propose | query | agree |
-      refuse | done`
-
-**If any differ, translate this framework's content into the current format
-rather than forcing the shape written here** — then fix `templates/`.
-
 ## 1. Enable spawning
-
-Munder Difflin ships with `orchestratorMaySpawn` **off**. Without it the creative
-director cannot create agents, and spawn requests sit in the directory rather
-than failing visibly.
 
 **Settings → Autonomy & Budgets → enable `orchestratorMaySpawn`.**
 
-## 2. Create the agents
+Off by default. While it is off, spawn requests wait in `spawn-requests/` rather
+than failing, which looks like a hang.
 
-Agent creation is a UI action — it cannot be scripted from here. For each file in
-`agents/`, create an agent with the `id`, `name`, `character`, `accent`,
-`description`, `command`, `provider`, and `model` from its roster entry block.
+## 2. Create the orchestrator
 
-Set `cwd` to **the photography site repository**, not this framework repository.
+Agent creation is a UI action — it cannot be scripted from here.
 
-Start with three and add the rest as work reaches them:
+Create **one** orchestrator from either `agents/management/michael.md` (system
+and product work) or `agents/management/creative-director.md` (client-facing
+creative work). **Not both** — two agents writing `board.md` is how a hive loses
+track of its own state.
 
-| First | Then |
-|---|---|
-| `creative-director` | `content-writer`, `cinematographer` |
-| `brand-strategist` | `media-engineer`, `client-experience-lead` |
-| `art-director` | `astro-engineer`, `experience-qa`, `discovery-specialist` |
+Use the `id`, `name`, `character`, `accent`, `description`, `command`,
+`provider`, and `model` from its roster entry block. Set:
 
-Add `cinematographer` early if film is a real product — the music licence audit
-is the finding you least want arriving in launch week.
+- **`cwd`** → the **project** repository, not this framework repository
+- **`project`** → your project's name (the files ship with `<PROJECT>`)
 
-**Start each agent once** so the harness creates its directory. `install-skills.sh`
+**Start it once** so the harness creates its directory. `install-skills.sh`
 refuses to write into an agent that has never run.
 
-## 3. Install the skills
+**Do not create the other 32 agents yet.** Which ones this project needs is a
+decision the orchestrator makes in step 6 → `agent-roster-design`.
+
+## 3. Install the onboarding pack
 
 ```bash
 cd "/path/to/Munder Difflin Framework"
-git checkout MD_creative_image_photography
+git checkout MD_generic
 
-./bin/install-skills.sh --agents                    # confirm they exist
-./bin/install-skills.sh --dry-run creative-director \
-  project-photographer-brand signature-style emotional-brief
+./bin/install-skills.sh --agents                    # confirm it exists
+./bin/install-skills.sh <orchestrator-id> \
+  project-discovery framework-personalisation agent-roster-design \
+  project-context project-client-brand \
+  requirements-analysis task-decomposition implementation-plan
 ```
-
-Then run the install command from the `## Skills` section of each agent file:
-
-```bash
-./bin/install-skills.sh creative-director \
-  project-photographer-brand project-shoot-catalogue project-content-inventory \
-  project-site-architecture signature-style emotional-brief brand-narrative \
-  wedding-story-arc case-study-structure media-consent launch-review
-```
-
-**Restart each agent** afterwards so Claude Code picks up the new skills.
 
 Verify:
 
 ```bash
-./bin/install-skills.sh --installed creative-director
+./bin/install-skills.sh --installed <orchestrator-id>
 ```
 
-## 4. Point the director at the playbook
+## 4. Restart the orchestrator
 
-In the creative director's session:
+**Claude Code reads `.claude/skills/` at session start.** The agent cannot see
+newly installed skills, and cannot restart itself. This is the step people miss.
 
-> Read `GOD-PLAYBOOK.md` in the framework repo at `<path>` and work through it.
+## 5. Point it at the bootstrap
 
-## 5. Run Phase 0 before anything else
+In the orchestrator's session:
 
-**This is blocking by design.** Exactly one fact about this client is verified —
-the Instagram handle `@creative_weddings_films_latur`. The grid could not be read
-(Instagram login-walls automated fetches) and no public directory listing
-corroborates the business.
+> Read `BOOTSTRAP.md` in the framework repo at `<path>` and work through it.
 
-Before any design or engineering work:
+It will verify the harness formats, locate everything, install what it needs, and
+then come back to you with the interview.
 
-- [ ] Confirm the trading name, its exact spelling, and the location
-- [ ] Answer the twenty-seven unknowns in `project-photographer-brand`
-- [ ] **Resolve stills-vs-film** — is film a real product? It changes the
-      navigation, the packages page, and the case-study shape
-- [ ] Fill the Instagram gap — a human with account access must supply the bio,
-      a post breakdown, and **100+ frames the photographer chose themselves**
-- [ ] Locate and assess the archive, including whether RAWs are kept
-- [ ] Audit music licences for every published reel and film
-- [ ] Confirm the shoot catalogue and service list
-- [ ] Get packages, prices, travel rule, and turnaround times — or publish none
+## 6. Answer the interview ⭐
 
-Until that is done, agents may plan but must not publish anything containing a
-`[to verify]` value.
+**This is the step that makes the framework yours.** The orchestrator will send
+one batched message covering six sections:
+
+| | Section |
+|---|---|
+| **A** | What and why — the one-liner, the outcome, what "done" looks like, **what is explicitly not in scope**, the deadline |
+| **B** | Who — audiences, their real devices and connection, the client, who decides and how fast |
+| **C** | Domain — industry, compliance environment, whether it handles money or personal data |
+| **D** | Technical — greenfield / rewrite / extension, stack, hosting, what must not break |
+| **E** | The work — what is actually sold, what content or data exists, what is behind a login |
+| **F** | Constraints — what was tried before and failed, what worries you, what is off-limits |
+
+**Answer section A properly, especially the non-goals.** It is the field most
+often left empty and the one that saves the most time later — scope grows through
+plausible additions, and a written non-goal turns "could we also…" back into a
+decision that was already made.
+
+**"I don't know" is a useful answer.** It gets recorded as `unknown` with what it
+blocks, rather than guessed.
+
+## 7. Let it personalise
+
+The orchestrator then runs four passes → `framework-personalisation`:
+
+1. **Selects packs** from your domain answer → `PACKS.md`
+2. **Fills the `project-*` knowledge files**, and deletes the ones that do not
+   apply to you
+3. **Re-examples** the installed skills into your domain — these skills are
+   written *principles first, one domain as the worked example*, and the examples
+   come from a retail system and a photography studio
+4. **Retunes the agent objectives** with your context and your blocking rules
+
+It reports back what it filled, what is still unknown, and **what it left
+deliberately generic**. Read that last part — it tells you where the framework
+still does not know your project.
+
+## 8. Phase 0 before any building
+
+**Blocking by design.** Discovery agents document what already exists —
+architecture, schema, API, business rules, client facts — with every claim marked
+`[verified]`, `[inferred]`, or `[assumed]`.
+
+Expect **one batched list of questions** that cannot be answered from the code:
+business rules, pricing logic, permission semantics, client facts. Answer them
+together; trickling them out is how this phase fails.
+
+Phase 0 exits when nothing load-bearing is still `[assumed]` — money, access,
+data integrity, legal claims, or published facts about the client.
 
 ## Troubleshooting
 
 | Symptom | Cause |
 |---|---|
-| `install-skills.sh` says the agent is not found | It has not started once. Start it, then retry |
-| `config.json not found` | Set `MUNDER_HARNESS_HOME` to your hive root |
-| Skills installed but the agent ignores them | Restart the agent |
-| Director cannot spawn | `orchestratorMaySpawn` is still off |
-| Skill name collision | The namespace is flat across the whole hive. Check for a same-named skill from another branch |
+| `could not determine harnessHome` | Set `MUNDER_HARNESS_HOME` to the hive root |
+| `agent "x" not found in the hive` | Use the real suffixed id from `--agents` |
+| Skills installed but the agent cannot see them | It has not been restarted (step 4) |
+| Spawn request sits in `spawn-requests/` | `orchestratorMaySpawn` is off (step 1) |
+| The orchestrator started work without interviewing you | It skipped `BOOTSTRAP.md` step 6. Send it back — an inferred domain is the failure this framework exists to prevent |
+| Agents produce competent but subtly foreign work | Personalisation was shallow. Re-run passes 3 and 4 |
+| Agents keep asking you the same question | It belongs in `project-context` and was never written down |
+| Every project looks like the last one | Someone personalised the repository instead of the hive copies |
+| An agent has 60 skills and reads badly | Cut its install line. Twelve is the target → `PACKS.md` |
 
-## References
+## Where to read next
 
-- **Munder Difflin `PROTOCOL.md` and `COMMANDS.md`** in your hive root — the
-  authoritative, version-current formats
-- **`templates/agent-template.md`** and **`templates/skill-template.md`** in this
-  repository — the snapshot these instructions assume
-
-**Not sourced — written for this framework:** the setup sequence, the agent
-ordering, the Phase 0 gate, and the troubleshooting table.
+| File | For |
+|---|---|
+| [`BOOTSTRAP.md`](BOOTSTRAP.md) | The orchestrator's twelve-step install and onboarding sequence |
+| [`GOD-PLAYBOOK.md`](GOD-PLAYBOOK.md) | The orchestrator's standing operating procedure |
+| [`PACKS.md`](PACKS.md) | Which skills exist for which kind of project |
+| [`templates/`](templates/) | Formats for adding a skill or an agent |
+| [`SOURCES.md`](SOURCES.md) | Bibliography and licences |

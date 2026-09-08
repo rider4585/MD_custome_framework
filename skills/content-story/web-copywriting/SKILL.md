@@ -39,7 +39,7 @@ promise at the only point that mattered.
 | Weak | Why | Stronger |
 |---|---|---|
 | "Creating unforgettable experiences" | True of every competitor | "310 guests. One venue change. Eleven days' notice." |
-| "Your dream wedding awaits" | About the reader's fantasy, not the company's ability | "We have run 40 weddings in Latur. Here are twelve." |
+| "Your dream wedding awaits" | About the reader's fantasy, not the company's ability | "We have run 40 weddings in <the city>. Here are twelve." |
 | "Premium event solutions" | Category words | "The same four people are there on the day." |
 
 The test: **swap in a competitor's name. If the sentence still works, it is not a
@@ -131,11 +131,11 @@ grep -rniE '>(submit|learn more|click here|read more)<' src/ --include=*.astro
 
 - **The client's existing copy is theirs.** Propose edits with the reason, do not
   silently rewrite their About page.
-- **Do not write in a register you cannot verify.** If the site ships Marathi,
+- **Do not write in a register you cannot verify.** If the site ships <the local language>,
   a native speaker writes it — translated marketing copy reads as translated. See
   `multilingual-content`.
 - **Concrete numbers require sourcing.** If nobody can confirm "40 weddings", it
-  does not ship. See `project-photographer-brand` for what is `[to verify]`.
+  does not ship. See `project-client-brand` for what is `[to verify]`.
 - **Length budgets are for the design to hold**, not laws. Break them knowingly.
 
 ### Checklist

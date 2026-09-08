@@ -25,7 +25,7 @@ shape, not an archive.
 The core claim of this skill: **the beats are the unit of selection, not the
 hours.** You do not cull "the morning"; you cull *anticipation*.
 
-> **Before running anything:** load `project-shoot-catalogue` for the function
+> **Before running anything:** load `project-service-catalogue` for the function
 > types this photographer actually shoots, and `emotional-brief` for the register
 > each carries. Do not build a Sangeet section for a photographer who does not
 > shoot them.

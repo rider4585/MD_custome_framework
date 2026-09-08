@@ -22,7 +22,7 @@ against it.
 Positioning for this category is **not** a slogan. It is the answer to: *why
 would someone drive past two cheaper organisers to reach this one?*
 
-> **Before running anything:** load `project-photographer-brand` for verified facts.
+> **Before running anything:** load `project-client-brand` for verified facts.
 > Do not invent history, client names, or numbers — a fabricated credential in
 > this market is discovered at the first venue conversation.
 
@@ -64,7 +64,7 @@ every organiser in India and is therefore not sentence 3 for any of them.
 | Plain verbs — planned, built, fed, lit, moved | Inflated verbs — curated, orchestrated, elevated |
 | Credit the team and vendors by name | The passive voice that hides who did the work |
 
-**Register in Marathi and Hindi is not a translation problem.** The formal/
+**Register in <the local language> and Hindi is not a translation problem.** The formal/
 familiar distinction (आपण vs तू) encodes the client relationship. Get it wrong and
 the copy reads as either cold or presumptuous. See `multilingual-content`.
 
@@ -93,7 +93,7 @@ budget a shoot; see `photo-curation`.
 - **Do not position against the client's actual customers.** "Not for people who
   want cheap" is a positioning statement that insults half the enquiry list.
 - **Verify before publishing any claim.** Award, count, or client name — sourced
-  or cut. See `project-photographer-brand` for what is currently `[to verify]`.
+  or cut. See `project-client-brand` for what is currently `[to verify]`.
 - **Voice is set by the client, not the agency.** Propose, show two options
   against real photographs, let them choose.
 
