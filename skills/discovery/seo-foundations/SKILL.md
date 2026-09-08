@@ -68,13 +68,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 | `<h1>` | One per page | May differ from the title |
 
 ```
-Home:       Eventina Organisers — Wedding & Event Planners in Latur
-Work index: Our Work — 12 Weddings and Events in Latur | Eventina
+Home:       the studio — Wedding Photographer & Filmmaker in Latur
+Work index: Our Work — 12 Weddings and Events in Latur | the studio
 Case study: The Sharma Wedding, Latur — 310 Guests, One Venue Change
-Service:    Wedding Planning in Latur | Eventina Organisers
+Service:    Wedding Planning in Latur | the studio
 ```
 
-**Put the distinguishing words first.** Titles truncate, and "Eventina
+**Put the distinguishing words first.** Titles truncate, and "the studio
 Organisers | " repeated at the start of every title wastes the visible portion.
 
 ```bash

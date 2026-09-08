@@ -41,7 +41,7 @@ Thresholds — measured at the **75th percentile** of real visits:
 
 ```bash
 # Throttled, mobile, three runs — a single run is noise
-npx lighthouse https://eventina.in/ \
+npx lighthouse https://studio.example/ \
   --preset=desktop=false --form-factor=mobile \
   --throttling-method=simulate \
   --only-categories=performance \
@@ -143,8 +143,8 @@ grep -rn 'aspect-ratio' src/ --include=*.css | wc -l
 - uses: treosh/lighthouse-ci-action@v12
   with:
     urls: |
-      https://eventina.in/
-      https://eventina.in/work/
+      https://studio.example/
+      https://studio.example/work/
     budgetPath: ./budget.json
     uploadArtifacts: true
 ```

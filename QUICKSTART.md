@@ -1,6 +1,7 @@
 # Quickstart
 
-Setting up the `MD_eventina` framework in a Munder Difflin hive. About 30
+Setting up the `MD_creative_image_photography` framework in a Munder Difflin
+hive. About 30
 minutes, most of it waiting for agents to start.
 
 ---
@@ -46,15 +47,18 @@ Agent creation is a UI action — it cannot be scripted from here. For each file
 `agents/`, create an agent with the `id`, `name`, `character`, `accent`,
 `description`, `command`, `provider`, and `model` from its roster entry block.
 
-Set `cwd` to **the Eventina site repository**, not this framework repository.
+Set `cwd` to **the photography site repository**, not this framework repository.
 
 Start with three and add the rest as work reaches them:
 
 | First | Then |
 |---|---|
-| `creative-director` | `content-writer` |
-| `brand-strategist` | `media-engineer` |
+| `creative-director` | `content-writer`, `cinematographer` |
+| `brand-strategist` | `media-engineer`, `client-experience-lead` |
 | `art-director` | `astro-engineer`, `experience-qa`, `discovery-specialist` |
+
+Add `cinematographer` early if film is a real product — the music licence audit
+is the finding you least want arriving in launch week.
 
 **Start each agent once** so the harness creates its directory. `install-skills.sh`
 refuses to write into an agent that has never run.
@@ -63,20 +67,20 @@ refuses to write into an agent that has never run.
 
 ```bash
 cd "/path/to/Munder Difflin Framework"
-git checkout MD_eventina
+git checkout MD_creative_image_photography
 
 ./bin/install-skills.sh --agents                    # confirm they exist
 ./bin/install-skills.sh --dry-run creative-director \
-  project-eventina-brand emotional-brief brand-narrative
+  project-photographer-brand signature-style emotional-brief
 ```
 
 Then run the install command from the `## Skills` section of each agent file:
 
 ```bash
 ./bin/install-skills.sh creative-director \
-  project-eventina-brand project-event-catalogue project-content-inventory \
-  project-site-architecture emotional-brief brand-narrative \
-  case-study-structure media-consent performance-budget launch-review
+  project-photographer-brand project-shoot-catalogue project-content-inventory \
+  project-site-architecture signature-style emotional-brief brand-narrative \
+  wedding-story-arc case-study-structure media-consent launch-review
 ```
 
 **Restart each agent** afterwards so Claude Code picks up the new skills.
@@ -95,17 +99,23 @@ In the creative director's session:
 
 ## 5. Run Phase 0 before anything else
 
-**This is blocking by design.** No fact about Eventina has been confirmed by the
-client, and the Instagram grid could not be read.
+**This is blocking by design.** Exactly one fact about this client is verified —
+the Instagram handle `@creative_weddings_films_latur`. The grid could not be read
+(Instagram login-walls automated fetches) and no public directory listing
+corroborates the business.
 
 Before any design or engineering work:
 
-- [ ] Confirm the eight `[to verify]` facts in `project-eventina-brand`
-- [ ] Answer the fourteen unknowns in the same file
+- [ ] Confirm the trading name, its exact spelling, and the location
+- [ ] Answer the twenty-seven unknowns in `project-photographer-brand`
+- [ ] **Resolve stills-vs-film** — is film a real product? It changes the
+      navigation, the packages page, and the case-study shape
 - [ ] Fill the Instagram gap — a human with account access must supply the bio,
-      post breakdown, and best-performing posts
-- [ ] Locate and assess the photograph archive
-- [ ] Confirm the event catalogue and service list
+      a post breakdown, and **100+ frames the photographer chose themselves**
+- [ ] Locate and assess the archive, including whether RAWs are kept
+- [ ] Audit music licences for every published reel and film
+- [ ] Confirm the shoot catalogue and service list
+- [ ] Get packages, prices, travel rule, and turnaround times — or publish none
 
 Until that is done, agents may plan but must not publish anything containing a
 `[to verify]` value.

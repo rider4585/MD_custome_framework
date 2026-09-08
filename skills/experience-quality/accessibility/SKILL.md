@@ -139,7 +139,7 @@ npm i -D @axe-core/playwright playwright
 npx playwright test a11y.spec.js
 
 # Whole-site crawl
-npx pa11y-ci --sitemap https://eventina.in/sitemap-index.xml
+npx pa11y-ci --sitemap https://studio.example/sitemap-index.xml
 
 # Static checks
 grep -rn '<img' src/ --include=*.astro | grep -v 'alt='          # missing alt

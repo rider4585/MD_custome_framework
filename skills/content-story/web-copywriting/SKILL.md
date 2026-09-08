@@ -135,7 +135,7 @@ grep -rniE '>(submit|learn more|click here|read more)<' src/ --include=*.astro
   a native speaker writes it — translated marketing copy reads as translated. See
   `multilingual-content`.
 - **Concrete numbers require sourcing.** If nobody can confirm "40 weddings", it
-  does not ship. See `project-eventina-brand` for what is `[to verify]`.
+  does not ship. See `project-photographer-brand` for what is `[to verify]`.
 - **Length budgets are for the design to hold**, not laws. Break them knowingly.
 
 ### Checklist

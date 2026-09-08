@@ -40,9 +40,11 @@ entangle markup with metadata.
 
 | Page | Type | Rich result? |
 |---|---|---|
-| Home | `LocalBusiness` (or `EventPlanner` subtype if apt) | Knowledge panel support |
-| Case study | `Event` + `ImageObject` | Limited — `Event` rich results target ticketed events |
-| Services | `Service` | No |
+| Home | `LocalBusiness` → `ProfessionalService`. There is no photography subtype | Knowledge panel support |
+| Case study | `ImageGallery` + licensable `ImageObject` | **Yes** — the licensable badge in Google Images |
+| Film page | `VideoObject` | **Yes** — video rich results and the video tab |
+| Services / pricing | `Service`, with `Offer` only if prices are published | No |
+| Venue page | `Article` or plain — **never** `Place` implying ownership | No |
 | All pages | `BreadcrumbList` | Yes — breadcrumbs in results |
 | FAQ page | `FAQPage` | Restricted since 2023; mostly government and health sites now |
 | Contact | `LocalBusiness` with `ContactPoint` | Supports the knowledge panel |
@@ -62,12 +64,12 @@ the Google Business Profile says → `local-discovery`.
 const business = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": "https://eventina.in/#business",
-  "name": "Eventina Organisers",
-  "description": "Wedding and event planning in Latur, Maharashtra.",
-  "url": "https://eventina.in/",
+  "@id": "https://studio.example/#business",
+  "name": "the studio",
+  "description": "Wedding photography and films in Latur, Maharashtra.",
+  "url": "https://studio.example/",
   "telephone": "+91XXXXXXXXXX",
-  "email": "hello@eventina.in",
+  "email": "hello@studio.example",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Kailash Plaza, Beside Manas Hotel, Barshi Road, Ganj Golai",
@@ -82,10 +84,9 @@ const business = {
     { "@type": "State", "name": "Maharashtra" }
   ],
   "foundingDate": "2016",
-  "image": "https://eventina.in/og-default.jpg",
+  "image": "https://studio.example/og-default.jpg",
   "sameAs": [
-    "https://www.instagram.com/eventina.organisers/",
-    "https://www.facebook.com/Eventina.in/"
+    "https://www.instagram.com/creative_weddings_films_latur/"
   ]
 };
 ---
@@ -93,7 +94,7 @@ const business = {
 ```
 
 **Every value must be verified before publishing.** Address, phone, and founding
-date in `project-eventina-brand` are currently `[to verify]` from a directory
+date in `project-photographer-brand` are currently `[to verify]` from a directory
 listing — publishing an unverified address in structured data is worse than
 publishing none, because it can propagate.
 
@@ -103,37 +104,79 @@ helping search engines resolve them as one entity.
 **Astro's `set:html` on a JSON-LD script** avoids the HTML-escaping that breaks
 JSON when interpolated normally.
 
-### Event, per case study
+### Case study — ImageGallery with licensable images
+
+For a photographer this replaces the `Event` markup an event-organiser site would
+use. A past private wedding is not an `Event` in the sense Google's event
+features mean — those target upcoming, public, ticketed events — and marking one
+up produces nothing. **The valuable markup is on the images themselves.**
 
 ```astro
 ---
-const { event } = Astro.props;
+const { study } = Astro.props;
 const schema = {
   "@context": "https://schema.org",
-  "@type": "Event",
-  "name": event.data.title,
-  "startDate": event.data.date.toISOString().split('T')[0],
-  "eventStatus": "https://schema.org/EventScheduled",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "location": {
-    "@type": "Place",
-    "name": event.data.facts.venue ?? "Latur",
-    "address": { "@type": "PostalAddress", "addressLocality": "Latur",
-                 "addressRegion": "Maharashtra", "addressCountry": "IN" }
-  },
-  "image": event.data.gallery.slice(0, 3).map(g => new URL(g.src.src, Astro.site).href),
-  "description": event.data.brief,
-  "organizer": { "@id": "https://eventina.in/#business" }
+  "@type": "ImageGallery",
+  "name": study.data.title,
+  "description": study.data.brief,
+  "datePublished": study.data.published.toISOString().split('T')[0],
+  "author": { "@id": "https://studio.example/#business" },
+  "about": study.data.venue ?? undefined,
+  "associatedMedia": study.data.gallery.map((g) => ({
+    "@type": "ImageObject",
+    "contentUrl": new URL(g.src.src, Astro.site).href,
+    "caption": g.alt,
+    "creator": { "@id": "https://studio.example/#business" },
+    "creditText": study.data.credits.photography,
+    "copyrightNotice": `© ${study.data.year} ${study.data.credits.photography}`,
+    "license": new URL('/licensing/', Astro.site).href,
+    "acquireLicensePage": new URL('/contact/', Astro.site).href
+  }))
 };
 ---
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 ```
 
-**`@id` references** link the event to the business without repeating the whole
-object — this is how you build a connected graph rather than isolated blobs.
+**`license` and `acquireLicensePage` are what earn the licensable badge** in
+Google Images, and they are among the few structured-data features that reliably
+produce a visible result for a photographer. Both are required; one alone does
+nothing → `image-rights-and-credit`.
 
-**Generate this from the collection entry**, never hand-write it per page. Hand-
-written JSON-LD drifts from the page within weeks → `content-collections`.
+**The values must match the embedded IPTC metadata exactly.** Two sources of
+truth for copyright is worse than one.
+
+**`/licensing/` must be a real page stating real terms.** Pointing `license` at a
+page that does not describe a licence is a guidelines violation.
+
+### Films — VideoObject
+
+Video is the other reliably visible rich result available here.
+
+```js
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Priya & Rohan — Wedding Film",
+  "description": "A four-minute highlight film from a two-day wedding in Latur.",
+  "thumbnailUrl": ["https://studio.example/films/priya-rohan-poster.jpg"],
+  "uploadDate": "2026-03-14T00:00:00+05:30",
+  "duration": "PT4M12S",                       // ISO 8601 — PT4M12S, not "4:12"
+  "contentUrl": "https://studio.example/films/priya-rohan.mp4",
+  "embedUrl": "https://player.vimeo.com/video/000000000",
+  "creator": { "@id": "https://studio.example/#business" },
+  "isFamilyFriendly": true
+}
+```
+
+- **`thumbnailUrl` is required** and must be a real, crawlable image — the same
+  poster frame the facade shows → `film-showcase`.
+- **`duration` is ISO 8601.** `PT4M12S`. A human-readable string is silently
+  ignored, which is the most common mistake in video markup.
+- **`uploadDate` needs a timezone offset.**
+- **Provide `contentUrl` or `embedUrl`, ideally both.** Facade-loading the player
+  does not affect eligibility, because the markup is in the HTML either way.
+- Add markup only for films actually on the page. A films index listing five
+  films may carry five `VideoObject`s; a page with none may carry none.
 
 ### Breadcrumbs
 
@@ -144,8 +187,8 @@ The most reliable visible rich result of the set.
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://eventina.in/" },
-    { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://eventina.in/work/" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://studio.example/" },
+    { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://studio.example/work/" },
     { "@type": "ListItem", "position": 3, "name": "The Sharma Wedding" }
   ]
 }
@@ -197,8 +240,13 @@ do anything with it.
   ignored with no error anywhere. Validate in CI.
 - **Do not mark up what is not visible.** The most common way to earn a manual
   action.
-- **`Event` markup for past events** is legitimate as description, but expect no
-  rich result — Google's event features target upcoming, ticketed events.
+- **Do not mark up a past private wedding as an `Event`.** Google's event
+  features target upcoming, public, ticketed events; the markup produces nothing
+  and misdescribes the page.
+- **The licensable badge is eligibility, not a guarantee** — like every
+  structured-data feature.
+- **Video markup will not rescue a film nobody watches.** It affects discovery in
+  the video tab, not completion → `film-showcase`.
 - **`FAQPage` rich results were heavily restricted in 2023.** Add it if the FAQ
   is genuinely useful, not for the snippet.
 - **Duplicate `@id` values** across pages create a confused graph. Keep them
@@ -210,7 +258,12 @@ do anything with it.
 - [ ] `LocalBusiness` on the home page with verified NAP
 - [ ] Every value verified — nothing `[to verify]` published
 - [ ] `sameAs` links to Instagram and Facebook
-- [ ] `Event` generated from the collection, not hand-written
+- [ ] `ImageGallery` + `ImageObject` generated from the collection, not hand-written
+- [ ] `license` and `acquireLicensePage` present on every published image
+- [ ] `/licensing/` exists and states real terms
+- [ ] `creditText` / `copyrightNotice` match the embedded IPTC values exactly
+- [ ] `VideoObject` on every film page, with a real `thumbnailUrl` and ISO 8601 `duration`
+- [ ] No `Event` markup on past private weddings
 - [ ] `@id` references connect events to the business
 - [ ] `BreadcrumbList` matching visible breadcrumbs
 - [ ] No `AggregateRating` for third-party reviews
@@ -222,8 +275,15 @@ do anything with it.
 
 ## References
 
-- **Schema.org** — `LocalBusiness`, `Event`, `Place`, `ImageObject`,
-  `BreadcrumbList`, `Service` <https://schema.org/LocalBusiness>
+- **Schema.org** — `LocalBusiness`, `ProfessionalService`, `ImageGallery`,
+  `ImageObject`, `VideoObject`, `BreadcrumbList`, `Service`
+  <https://schema.org/LocalBusiness>
+- **Google Search Central — Image licence structured data**, the `license` +
+  `acquireLicensePage` requirement for the licensable badge
+  <https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata>
+- **Google Search Central — Video structured data**, `thumbnailUrl`,
+  `uploadDate`, and the ISO 8601 `duration` requirement
+  <https://developers.google.com/search/docs/appearance/structured-data/video>
 - **Google Search Central — Introduction to structured data markup**
   <https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data>
 - **Google Search Central — Structured data general guidelines**, on marking up
@@ -239,5 +299,6 @@ do anything with it.
   <https://docs.astro.build/en/reference/directives-reference/#sethtml>
 
 **Not sourced — written for this framework:** the page-to-type mapping with
-honest rich-result expectations, the generate-from-collection rule, the
+honest rich-result expectations, the argument against `Event` markup on private
+weddings, the generate-from-collection rule, the metadata-must-match rule, the
 `@id`-graph approach, and the validation script.

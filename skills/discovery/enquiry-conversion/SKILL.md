@@ -48,7 +48,7 @@ For a service business in India, ranked by likely volume:
 | Email | Lowest volume here, but expected on a premium site |
 
 ```html
-<a href="https://wa.me/91XXXXXXXXXX?text=Hi%20Eventina%2C%20I%27m%20planning%20a%20wedding%20in%20"
+<a href="https://wa.me/91XXXXXXXXXX?text=Hi%20the studio%2C%20I%27m%20planning%20a%20wedding%20in%20"
    class="cta-whatsapp">WhatsApp us</a>
 
 <a href="tel:+91XXXXXXXXXX" class="cta-phone">Call +91 XXXXX XXXXX</a>

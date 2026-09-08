@@ -50,7 +50,7 @@ keeps the migration path open in both directions — the config is portable.
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Content — Eventina</title>
+    <title>Content — Studio</title>
     <meta name="robots" content="noindex">
   </head>
   <body>
@@ -69,7 +69,7 @@ so the admin page never appears in search results.
 # public/admin/config.yml
 backend:
   name: github
-  repo: owner/eventina-site
+  repo: owner/photography-site
   branch: main
   base_url: https://your-oauth-proxy.example.com   # or Netlify/Cloudflare auth
 

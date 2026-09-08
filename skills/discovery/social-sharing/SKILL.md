@@ -58,7 +58,7 @@ const ogImage = new URL(image?.src ?? '/og-default.jpg', Astro.site);
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={description} />
-<meta property="og:site_name" content="Eventina Organisers" />
+<meta property="og:site_name" content="the studio" />
 <meta property="og:locale" content="en_IN" />
 
 <meta name="twitter:card" content="summary_large_image" />
@@ -118,11 +118,11 @@ other and with reality.
 
 ```bash
 # Verify the tags on the live page
-curl -s https://eventina.in/work/sharma-wedding-2026/ \
+curl -s https://studio.example/work/sharma-wedding-2026/ \
   | grep -oP '<meta (property|name)="(og|twitter):[^>]*>'
 
 # Confirm the image resolves, and its size
-og=$(curl -s https://eventina.in/ | grep -oP '(?<=og:image" content=")[^"]+')
+og=$(curl -s https://studio.example/ | grep -oP '(?<=og:image" content=")[^"]+')
 curl -sI "$og" | grep -iE 'content-type|content-length'
 ```
 
@@ -132,7 +132,7 @@ client will keep seeing the old preview and report it as broken.
 
 ### The Instagram funnel
 
-`@eventina.organisers` is the strongest existing channel. The link in the bio is
+`@thestudio` is the strongest existing channel. The link in the bio is
 where it lands.
 
 - **Send it to a page designed for that arrival**, not necessarily the home page.

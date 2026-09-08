@@ -77,9 +77,9 @@ src/pages/
 ```
 
 ```html
-<link rel="alternate" hreflang="en-IN" href="https://eventina.in/work/x/">
-<link rel="alternate" hreflang="mr-IN" href="https://eventina.in/mr/work/x/">
-<link rel="alternate" hreflang="x-default" href="https://eventina.in/work/x/">
+<link rel="alternate" hreflang="en-IN" href="https://studio.example/work/x/">
+<link rel="alternate" hreflang="mr-IN" href="https://studio.example/mr/work/x/">
+<link rel="alternate" hreflang="x-default" href="https://studio.example/work/x/">
 ```
 
 - **Reciprocal or ignored.** Each page must point at the other *and* at itself.

@@ -1,22 +1,25 @@
-# munder-difflin-agents — `MD_eventina`
+# munder-difflin-agents — `MD_creative_image_photography`
 
 An agent and skill framework for the
 [Munder Difflin](https://github.com/chaitanyagiri/munder-difflin) multi-agent
-harness, built for **high-end portfolio websites** — and configured for
-**Eventina Organisers**, an event company in Latur, Maharashtra.
+harness, built for **high-end photography portfolio websites** — and configured
+for a **wedding and function photographer and videographer** in Latur,
+Maharashtra ([`@creative_weddings_films_latur`](https://www.instagram.com/creative_weddings_films_latur/)).
 
-**38 skills · 8 agents · one orchestrator playbook**
+**45 skills · 10 agents · one orchestrator playbook**
 
 ---
 
 ## What this is
 
-A specialised team for building a portfolio site whose job is to **convey the
-emotion of different kinds of events** and prove an organiser's ability to run
-them. Not a generic web-build framework: the skills are written for the specific
-problems of a photograph-led premium site — culling four hundred images down to
-twelve, keeping a grid's colour grade consistent, publishing photographs of
-wedding guests lawfully, and turning a beautiful page into a phone call.
+A specialised team for building a portfolio site whose job is to make **the right
+couples enquire** — couples who want *this* photographer, not *a* photographer.
+Not a generic web-build framework: the skills are written for the specific
+problems of a photographer's site — finding the signature hidden in four thousand
+frames and culling to twelve, keeping a grid's colour grade consistent,
+presenting a wedding film that only works with sound on a page nobody will
+unmute, clearing the music before it earns a takedown, publishing photographs of
+wedding guests lawfully, and turning a beautiful page into a booked date.
 
 ### Branch model
 
@@ -24,11 +27,16 @@ wedding guests lawfully, and turning a beautiful page into a phone call.
 |---|---|
 | `main` | Project README only |
 | `MD_IMPOC` | Retail / point-of-sale — 170 skills, 23 agents |
-| **`MD_eventina`** | **Portfolio websites — this branch** |
+| `MD_eventina` | Event-organiser portfolio — 38 skills, 8 agents |
+| **`MD_creative_image_photography`** | **Photography & film portfolio — this branch** |
 
-This branch was built **lean and standalone**, not as a fork of `MD_IMPOC`. It
-carries the shared infrastructure (`bin/install-skills.sh`, templates) and none
-of the retail domain.
+Branched from `MD_eventina`, which shares the photograph-led portfolio problem.
+The creative, web-craft, media, discovery, and quality skills carried across and
+were retuned; the four Eventina project-knowledge skills were replaced, and the
+**seven `photography-craft` skills and two agents are new** — they cover what a
+photographer's site needs and an event organiser's does not: the signature, the
+day's narrative beats, films and their music licences, delivery galleries,
+packages, image rights, and the vendor referral network.
 
 ## ⚠️ Formats are a snapshot, not a contract
 
@@ -57,8 +65,8 @@ Two constraints that shaped the repository, both discovered from a live install:
 ├── SOURCES.md                        ← consolidated bibliography, with licences
 ├── GOD-PLAYBOOK.md                   ← the creative director reads this each session
 ├── QUICKSTART.md                     ← human setup guide
-├── agents/<category>/*.md            ← 8 agents: roster entry, skills, objective
-├── skills/<category>/<name>/SKILL.md ← 38 skills
+├── agents/<category>/*.md            ← 10 agents: roster entry, skills, objective
+├── skills/<category>/<name>/SKILL.md ← 45 skills
 ├── templates/                        ← agent and skill templates
 └── bin/install-skills.sh             ← installs skills into an agent
 ```
@@ -67,26 +75,29 @@ Two constraints that shaped the repository, both discovered from a live install:
 
 | Category | Agent | Owns |
 |---|---|---|
-| **Management** | `creative-director` | The emotional brief, the quality bar, the sequence |
+| **Management** | `creative-director` | The signature, the emotional brief, the quality bar, the sequence |
 | **Creative** | `brand-strategist` | Positioning, story spine, voice |
 | | `art-director` | Image sequencing, layout, type, colour, motion |
+| | `cinematographer` | **New** — the film ladder, playback, sound, music licensing |
 | | `content-writer` | Interviews, case studies, microcopy, alt text |
 | **Engineering** | `astro-engineer` | The Astro build, content model, CSS, CMS, deploy |
-| | `media-engineer` | Ingest, EXIF, transcoding, video, consent records |
+| | `media-engineer` | Ingest, EXIF, rights metadata, transcoding, consent records |
 | **Quality** | `experience-qa` | Accessibility, Core Web Vitals, devices, launch gate |
-| **Growth** | `discovery-specialist` | Google Business Profile, structured data, sharing |
+| **Growth** | `discovery-specialist` | Structured data, local listings, venue pages, sharing |
+| | `client-experience-lead` | **New** — pricing, process, enquiry, delivery, referrals |
 
 ## The skills
 
 | Category | # | Covers |
 |---|---|---|
+| `photography-craft` | **7** | **Signature, story arc, films, delivery, packages, rights, referrals** |
 | `creative-direction` | 7 | Emotion mapping, art direction, layout, type, colour, motion |
 | `web-craft` | 7 | Astro, content collections, islands, CMS, transitions, CSS, deploy |
 | `media-pipeline` | 6 | Optimisation, curation, video, galleries, consent, asset workflow |
 | `experience-quality` | 5 | Accessibility, Core Web Vitals, budgets, devices, launch |
 | `discovery` | 5 | SEO, structured data, local listings, sharing, enquiry conversion |
 | `content-story` | 4 | Case studies, copywriting, testimonials, multilingual |
-| `project-knowledge` | 4 | Eventina's verified facts, catalogue, inventory, architecture |
+| `project-knowledge` | 4 | The studio's verified facts, catalogue, inventory, architecture |
 
 `./bin/install-skills.sh --list` prints the full index.
 
@@ -128,14 +139,24 @@ Two research findings shaped these choices, both verified 2026-09-07:
 These appear throughout because they are what a portfolio site gets wrong
 expensively:
 
-- **Selection is the premium signal.** Twelve events shown properly beats sixty
+- **A portfolio without a signature is a competence display**, and a competence
+  display competes only on price
+- **Selection is the premium signal.** Eight weddings shown properly beats forty
   in a grid
-- **A portfolio cannot out-design its photography.** If the archive is weak, say
-  so early and budget a shoot
+- **The frame that gets a photographer hired is the aftermath frame** — the one
+  taken ten seconds after the moment every guest also photographed
+- **A portfolio cannot out-design its photography.** If the archive has no
+  consistent look, report it — no grid or typeface creates one
 - **No problem, no case study.** Without a difficulty and a decision it is a
   gallery — publish it as one
 - **Consent is a build gate, not a courtesy.** India's DPDP Rules were notified
   in November 2025
+- **Music licensing is a build gate too.** A commercial track on a published
+  wedding film is commercial use, and crediting the artist has no legal effect
+- **Abundance is not readiness.** Eighty thousand frames and zero publishable
+  case studies is the normal starting position
+- **Delivery galleries are a separate system** from the marketing site, on a
+  separate host, `noindex`, never in the sitemap
 - **The images are the design.** Layout, type, and colour exist to not damage
   them
 - **Motion must reveal structure or relationship**, and every animation ships
@@ -147,19 +168,21 @@ expensively:
 
 ## ⛔ Phase 0 is blocking
 
-**No fact about Eventina has been confirmed by the client.** The address,
-founding year, service mix, and rating in
-[`project-eventina-brand`](skills/project-knowledge/project-eventina-brand/SKILL.md)
-all came from a directory listing. The Instagram grid could not be read —
-Instagram serves a login wall to automated fetches — so the actual content
-archive is unassessed.
+**Exactly one fact about this client is verified: the Instagram handle.**
+Everything else in
+[`project-photographer-brand`](skills/project-knowledge/project-photographer-brand/SKILL.md)
+is an inference or a question. The trading name, the location, and even whether
+film is sold as a product are **inferences from a username** — the grid could not
+be read, because Instagram serves a login wall to automated fetches, and a web
+search on 2026-09-08 found no directory listing corroborating the business.
 
 **Nothing marked `[to verify]` may be published.** Not in copy, not in structured
-data, not in a meta description. An agent that needs an unverified fact omits it
-and escalates.
+data, not in a page title, and above all not in a price. An agent that needs an
+unverified fact omits it, marks the gap, and escalates.
 
 This is deliberate and it is the rule most likely to be argued with. A wrong
-address in `LocalBusiness` structured data propagates across the web.
+trading name reaches every page title, the `LocalBusiness` markup, and the
+copyright line embedded in every published image.
 
 ## Getting started
 
@@ -168,7 +191,7 @@ See **[QUICKSTART.md](QUICKSTART.md)**. The short version:
 ```bash
 ./bin/install-skills.sh --agents          # what's in your hive
 ./bin/install-skills.sh --list            # what's available
-./bin/install-skills.sh creative-director emotional-brief brand-narrative
+./bin/install-skills.sh creative-director signature-style emotional-brief
 ```
 
 Then have the creative director read [`GOD-PLAYBOOK.md`](GOD-PLAYBOOK.md).

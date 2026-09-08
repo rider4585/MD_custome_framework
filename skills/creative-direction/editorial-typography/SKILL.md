@@ -21,7 +21,7 @@ optimises for one enormous headline and a small amount of very readable prose.**
 The rules differ enough that applying UI type guidance to a portfolio produces
 timid, forgettable pages.
 
-> **Before running anything:** confirm from `project-eventina-brand` whether the
+> **Before running anything:** confirm from `project-photographer-brand` whether the
 > site ships Marathi or Hindi content. Devanagari support changes the font
 > selection entirely and cannot be retrofitted cheaply.
 

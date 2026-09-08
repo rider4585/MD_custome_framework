@@ -16,7 +16,7 @@ allowed-tools:
 
 ## Emotional Brief
 
-A portfolio for an event organiser is not selling a service. It is selling
+A portfolio for a photographer is not selling a service. It is selling
 **evidence that this company can produce a feeling on a specific day**. The site
 fails when every event looks like the same event — same grid, same fade-up, same
 warm filter — because that tells the visitor the company has one move.
@@ -24,7 +24,7 @@ warm filter — because that tells the visitor the company has one move.
 The job of this skill is to make the *difference between event types visible* in
 the design itself, before anyone writes CSS.
 
-> **Before running anything:** load `project-event-catalogue` for the event types
+> **Before running anything:** load `project-shoot-catalogue` for the event types
 > this client actually sells. Do not design for categories they do not run.
 
 ### Method

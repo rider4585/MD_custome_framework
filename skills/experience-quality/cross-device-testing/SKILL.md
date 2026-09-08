@@ -42,7 +42,7 @@ best-effort.
 | Tier | Device / context | Why |
 |---|---|---|
 | **1** | Mid-range Android (e.g. Redmi/Realme, 6.5", Chrome) | The modal visitor |
-| **1** | **Instagram in-app browser, Android** | The likeliest arrival path from `@eventina.organisers` |
+| **1** | **Instagram in-app browser, Android** | The likeliest arrival path from `@thestudio` |
 | **1** | iPhone, Safari | Higher-budget clients; Safari has distinct bugs |
 | **2** | Android tablet / iPad, both orientations | |
 | **2** | Desktop 1440 px, Chrome and Safari | The client reviews on this |
@@ -113,7 +113,7 @@ Testing on a fast connection hides the problems that matter here.
 ```bash
 # Chrome DevTools: Slow 4G + 4x CPU slowdown
 # Lighthouse with mobile emulation and simulated throttling
-npx lighthouse https://eventina.in/ --form-factor=mobile --throttling-method=simulate
+npx lighthouse https://studio.example/ --form-factor=mobile --throttling-method=simulate
 
 # Real device, real network — Android remote debugging
 adb devices && echo "open chrome://inspect on the desktop"

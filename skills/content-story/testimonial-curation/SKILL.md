@@ -97,7 +97,7 @@ common mistake in this category.
 
 ### Third-party ratings
 
-Eventina holds public ratings on Justdial and similar directories. These are
+the studio holds public ratings on Justdial and similar directories. These are
 stronger proof than site-hosted quotes because the visitor knows the company did
 not write them.
 

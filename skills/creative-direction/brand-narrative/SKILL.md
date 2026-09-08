@@ -22,7 +22,7 @@ against it.
 Positioning for this category is **not** a slogan. It is the answer to: *why
 would someone drive past two cheaper organisers to reach this one?*
 
-> **Before running anything:** load `project-eventina-brand` for verified facts.
+> **Before running anything:** load `project-photographer-brand` for verified facts.
 > Do not invent history, client names, or numbers — a fabricated credential in
 > this market is discovered at the first venue conversation.
 
@@ -93,7 +93,7 @@ budget a shoot; see `photo-curation`.
 - **Do not position against the client's actual customers.** "Not for people who
   want cheap" is a positioning statement that insults half the enquiry list.
 - **Verify before publishing any claim.** Award, count, or client name — sourced
-  or cut. See `project-eventina-brand` for what is currently `[to verify]`.
+  or cut. See `project-photographer-brand` for what is currently `[to verify]`.
 - **Voice is set by the client, not the agency.** Propose, show two options
   against real photographs, let them choose.
 

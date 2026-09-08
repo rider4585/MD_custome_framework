@@ -51,7 +51,7 @@ for the highest-intent searches. Completeness is the main lever.
 | Field | Guidance |
 |---|---|
 | Name | **Exactly the legal/trading name.** No "Best Wedding Planner Latur" — keyword stuffing here risks suspension |
-| Category | Primary: Event Planner or Wedding Planner. Secondary categories for the rest |
+| Category | Primary: **Wedding Photographer**. Secondary: Videographer, Photographer. Never a planner category |
 | Address | Exactly as on the site and every directory |
 | Service area | The districts actually served |
 | Hours | Real hours, including festival closures |
@@ -72,7 +72,7 @@ Name, Address, Phone must be **byte-identical** everywhere. Inconsistency
 fragments the signals that tell a search engine these listings are one business.
 
 ```
-Eventina Organisers
+the studio
 Kailash Plaza, Beside Manas Hotel, Barshi Road, Ganj Golai, Latur, Maharashtra 413512
 +91 XXXXX XXXXX
 ```
@@ -91,7 +91,7 @@ client the exact string.
 
 **Everything above is `[to verify]`** until confirmed with the client — the
 address here came from a directory listing, not from the business. See
-`project-eventina-brand`.
+`project-photographer-brand`.
 
 ### Connecting the profiles
 
@@ -124,7 +124,7 @@ Google reviews influence local ranking and are the first thing a prospect reads.
 
 ### Directories
 
-In this market, Justdial and Sulekha carry real traffic. Eventina already appears
+In this market, Justdial and Sulekha carry real traffic. the studio already appears
 on Justdial with a rating — that listing is an asset.
 
 - **Claim the listing** if it was created by the directory rather than the
@@ -160,8 +160,8 @@ grep -rn 'how did you hear' src/ --include=*.astro -i   # attribution question
 - **The client owns this work.** Reviews, posts, and photos are an ongoing habit
   the business must keep — a developer cannot do it for them. Say so, and hand
   over a written routine.
-- **Everything about Eventina's address, phone, and founding date is unverified**
-  until the client confirms it → `project-eventina-brand`.
+- **Everything about the studio's address, phone, and founding date is unverified**
+  until the client confirms it → `project-photographer-brand`.
 
 ### Checklist
 
@@ -191,9 +191,9 @@ grep -rn 'how did you hear' src/ --include=*.astro -i   # attribution question
 - **Google Search Central — local business structured data**, the on-site half of
   NAP consistency
   <https://developers.google.com/search/docs/appearance/structured-data/local-business>
-- **Justdial listing — Eventina Organisers, Ganj Golai, Latur**, the source of
+- **Justdial listing — the studio, Ganj Golai, Latur**, the source of
   the address, founding year, and rating recorded as `[to verify]`
-  <https://www.justdial.com/Latur/Eventina-Organisers-Near-Manas-Hotel-Latur-HO/9999P2382-2382-191109130517-W8Y2_BZDET>
+  <https://www.justdial.com/Latur/the studio-Organisers-Near-Manas-Hotel-Latur-HO/9999P2382-2382-191109130517-W8Y2_BZDET>
 
 **Not sourced — written for this framework:** the ranked discovery-channel list
 for this business, the "ranking first in organic is the least valuable thing"

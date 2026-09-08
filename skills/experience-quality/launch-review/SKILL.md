@@ -40,9 +40,9 @@ npm run build                                  # schemas + types must pass
 npx astro check
 ./bin/check-budget.sh                          # → performance-budget
 npx playwright test                            # a11y + overflow → accessibility, cross-device-testing
-npx lighthouse https://staging.eventina.in/ --form-factor=mobile --quiet
-npx pa11y-ci --sitemap https://staging.eventina.in/sitemap-index.xml
-npx linkinator https://staging.eventina.in/ --recurse --silent   # broken links
+npx lighthouse https://staging.studio.example/ --form-factor=mobile --quiet
+npx pa11y-ci --sitemap https://staging.studio.example/sitemap-index.xml
+npx linkinator https://staging.studio.example/ --recurse --silent   # broken links
 ```
 
 ### Content gate
@@ -89,9 +89,9 @@ grep -rn 'verified: false\|consent: false' src/content/
 - [ ] Analytics recording, and cookieless
 
 ```bash
-curl -s https://staging.eventina.in/ | grep -oP '<title>.*?</title>'
-curl -s https://staging.eventina.in/ | grep -oP '<meta property="og:[^>]*>'
-curl -sI https://eventina.in/ | grep -iE 'strict-transport|content-security|x-content-type'
+curl -s https://staging.studio.example/ | grep -oP '<title>.*?</title>'
+curl -s https://staging.studio.example/ | grep -oP '<meta property="og:[^>]*>'
+curl -sI https://studio.example/ | grep -iE 'strict-transport|content-security|x-content-type'
 ```
 
 ### Enquiry gate

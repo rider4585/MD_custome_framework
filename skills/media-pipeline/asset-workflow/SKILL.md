@@ -152,7 +152,7 @@ ingestedOn: 2026-03-02
 ingestedBy: "rb"
 exifStripped: true
 consentRecord: "src/content/events/sharma-wedding-2026.md#mediaConsent"
-licence: "Client-owned; usage granted for eventina.in and Instagram"
+licence: "Client-owned; usage granted for studio.example and Instagram"
 ```
 
 **Photographer credit is a licence condition more often than people assume.**

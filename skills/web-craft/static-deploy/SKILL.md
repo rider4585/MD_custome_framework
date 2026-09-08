@@ -130,7 +130,7 @@ export async function onRequestPost({ request, env }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'site@eventina.in',
+      from: 'site@studio.example',
       to: env.ENQUIRY_TO,
       subject: `Enquiry — ${name}`,
       text: [...form.entries()].map(([k, v]) => `${k}: ${v}`).join('\n'),
@@ -165,7 +165,7 @@ URLs and splits any ranking signal.
 // astro.config.mjs
 import sitemap from '@astrojs/sitemap';
 export default defineConfig({
-  site: 'https://eventina.in',        // required, or the sitemap has no absolute URLs
+  site: 'https://studio.example',        // required, or the sitemap has no absolute URLs
   integrations: [sitemap()],
   trailingSlash: 'always',
 });
@@ -176,7 +176,7 @@ export default defineConfig({
 User-agent: *
 Allow: /
 Disallow: /admin/
-Sitemap: https://eventina.in/sitemap-index.xml
+Sitemap: https://studio.example/sitemap-index.xml
 ```
 
 **`site` must be set** or canonical URLs, the sitemap, and Open Graph URLs are
@@ -205,8 +205,8 @@ grep -rn '<form' src/ --include=*.astro | grep -v 'method='   # JS-only form
 npx serve dist                                                 # verify the built output
 
 # After deploy
-curl -sI https://eventina.in/ | grep -i 'cache-control\|content-security\|strict-transport'
-curl -sI https://eventina.in/_astro/ | grep -i cache-control
+curl -sI https://studio.example/ | grep -i 'cache-control\|content-security\|strict-transport'
+curl -sI https://studio.example/_astro/ | grep -i cache-control
 ```
 
 ### Caveats

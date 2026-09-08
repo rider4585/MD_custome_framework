@@ -19,7 +19,7 @@ that is noted — the note is the point, not the link.
 |---|---|---|
 | [WCAG 2.2](https://www.w3.org/TR/WCAG22/) — W3C Recommendation | Accessibility floor. Cited by success criterion | W3C Document Licence |
 | [WAI-ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/) | Keyboard and role patterns for galleries, dialogs, carousels | W3C Document Licence |
-| [Schema.org](https://schema.org/) — `Event`, `LocalBusiness`, `ImageObject`, `Review`, `FAQPage`, `BreadcrumbList` | Structured data vocabulary | CC BY-SA 3.0 |
+| [Schema.org](https://schema.org/) — `LocalBusiness`, `ImageGallery`, `ImageObject`, `VideoObject`, `Service`, `BreadcrumbList` | Structured data vocabulary | CC BY-SA 3.0 |
 | [Open Graph protocol](https://ogp.me/) | Link previews for WhatsApp, Instagram, Facebook | Open Web Foundation Agreement 0.9 |
 | [CSS Scroll-driven Animations](https://www.w3.org/TR/scroll-animations-1/) — W3C | Native scroll choreography without JS | W3C Document Licence |
 | [View Transitions API](https://www.w3.org/TR/css-view-transitions-1/) — W3C | Cinematic page-to-page transitions | W3C Document Licence |
@@ -92,7 +92,7 @@ that is noted — the note is the point, not the link.
 | [Nielsen Norman Group](https://www.nngroup.com/articles/) | Scanning patterns, trust, form usability | Free articles |
 | [Smashing Magazine](https://www.smashingmagazine.com/) | Long-form technique articles, cited per-article | Free |
 | [Google Search Central](https://developers.google.com/search/docs) | Crawling, indexing, structured-data eligibility | CC BY 4.0 |
-| [Google Business Profile Help](https://support.google.com/business/) | Local discovery — the dominant channel for a Latur event company | Free |
+| [Google Business Profile Help](https://support.google.com/business/) | Local discovery — a dominant channel for a Latur wedding studio | Free |
 
 ## 8. Legal and consent (India)
 
@@ -105,30 +105,66 @@ that is noted — the note is the point, not the link.
 > raises the question and records the client's answer, not so it decides the law.
 > Anything with legal consequence goes to the client with a named human decision.
 
-## 9. Business facts — Eventina Organisers
+## 9. Business facts — the client studio
 
-Gathered on 2026-09-07 from public listings. **Marked `[to verify]` where a
-secondary source is the only source** — see `skills/project-knowledge/`.
+**Gathered 2026-09-08. One fact is verified; everything else is an inference or a
+gap** — see `skills/project-knowledge/project-photographer-brand/SKILL.md`.
 
-| Fact | Source |
-|---|---|
-| Latur, Maharashtra; Kailash Plaza, beside Manas Hotel, Barshi Road, Ganj Golai, 413512 | [Justdial listing](https://www.justdial.com/Latur/Eventina-Organisers-Near-Manas-Hotel-Latur-HO/9999P2382-2382-191109130517-W8Y2_BZDET) `[to verify]` |
-| Established 2016; weddings, birthdays, dance parties | Justdial listing `[to verify]` |
-| 4.8 / 5 from 93 ratings | Justdial listing `[to verify]` |
-| Instagram `@eventina.organisers` — "Eventina 2.0 ✨ New account. Same passion." | [Instagram](https://www.instagram.com/eventina.organisers/) |
-| Prior Instagram account `@eventinaorganisers` | [Instagram](https://www.instagram.com/eventinaorganisers/) |
-| Facebook page `Eventina.in` | [Facebook](https://www.facebook.com/Eventina.in/) |
-| Registered style "Eventina Organisers Pvt Ltd" | Instagram page title `[to verify]` |
+| Fact | Source | Status |
+|---|---|---|
+| Instagram handle `@creative_weddings_films_latur` | Supplied directly by the project owner in session, 2026-09-08 | **Verified** |
+| Trading name contains "Creative" | Inferred from the handle | `[to verify]` |
+| Operates in Latur, Maharashtra | Inferred from the handle | `[to verify]` |
+| Sells stills **and** film | Inferred from "films" in the handle | `[to verify]` |
 
-**The Instagram grid itself could not be read** — Instagram serves a login wall to
-automated fetches. Post captions, image count, event mix, and the current bio are
-therefore **unknown**, and `project-content-inventory` treats them as a blocking
-gap to be filled by a human with account access.
+**The Instagram profile could not be read.** A fetch of
+<https://www.instagram.com/creative_weddings_films_latur/> on 2026-09-08 returned
+only the login wall — no bio, no captions, no counts. Instagram serves a login
+wall to automated fetching.
+
+**No corroborating public listing was found.** A web search on 2026-09-08 for the
+handle and for "Creative Weddings Films Latur" returned no Justdial, Sulekha,
+WeddingWire, or equivalent entry for this studio. The Latur wedding-vendor
+listings that did surface —
+[Sulekha](https://www.sulekha.com/wedding-videographers/latur) and
+[5BestInCity](https://ind.5bestincity.com/wedding-photographers-in-latur-mh) —
+name **other** studios and are recorded here only as evidence of the search, not
+as facts about this client.
+
+The archive is therefore **unassessed** and the business is **undocumented in
+public sources**. `project-content-inventory` treats both as blocking gaps to be
+filled by a human with account access.
+
+## 10. Photography-craft sources
+
+Cited specifically in the seven `skills/photography-craft/` skills.
+
+| Source | Used for | Licence / access |
+|---|---|---|
+| [Google — Image licence structured data](https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata) | `license` + `acquireLicensePage` and the licensable badge | CC BY 4.0 |
+| [Google — Video structured data](https://developers.google.com/search/docs/appearance/structured-data/video) | `VideoObject`, `thumbnailUrl`, ISO 8601 `duration` | CC BY 4.0 |
+| [Google — Block indexing / `noimageindex`](https://developers.google.com/search/docs/crawling-indexing/block-indexing) | `X-Robots-Tag` on delivery galleries | CC BY 4.0 |
+| [Google — Link spam policies](https://developers.google.com/search/docs/essentials/spam-policies#link-spam) | The argument against reciprocal vendor link grids | CC BY 4.0 |
+| [IPTC Photo Metadata Standard](https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata) | `By-line`, `CopyrightNotice`, `Credit`, XMP rights fields | Free to use |
+| [Embedded Metadata Manifesto](https://www.embeddedmetadata.org/) | Preserving metadata through build pipelines | Free |
+| [ExifTool](https://exiftool.org/TagNames/IPTC.html) | The embed and verify commands | Perl Artistic / GPL |
+| [MDN — Autoplay guide](https://developer.mozilla.org/en-US/docs/Web/Media/Autoplay_guide) | Why muted is the only reliable autoplay | CC BY-SA 2.5 |
+| [web.dev — Third-party facades](https://web.dev/articles/third-party-facades) | The facade pattern for film embeds | CC BY 4.0 |
+| [Creative Commons — NonCommercial FAQ](https://creativecommons.org/faq/#does-my-use-violate-the-noncommercial-clause-of-the-licenses) | Why `CC BY-NC` fails on a site that sells services | CC BY 4.0 |
+| [YouTube — How Content ID works](https://support.google.com/youtube/answer/2797370) | The practical consequence of uncleared music | Free |
+| [Vimeo — Do Not Track player parameter](https://help.vimeo.com/hc/en-us/articles/12426199699857) | `dnt=1` on embeds | Free |
+| [Baymard Institute — form field research](https://baymard.com/blog/checkout-flow-average-form-fields) | Field count and abandonment on the enquiry form | Free article |
+| [Freytag's pyramid](https://www.britannica.com/art/Freytags-pyramid) | The classical source of the five-movement arc | Reference |
+| [OWASP — Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html) | The build route for client galleries | CC BY-SA 4.0 |
 
 ---
 
-**Not sourced — written for this framework:** the emotion-per-event-type model,
-the case-study anatomy, the media-consent workflow, the enquiry-conversion
-patterns for a WhatsApp-first market, all agent objectives, and every checklist.
+**Not sourced — written for this framework:** the emotion-per-shoot-type model,
+the eight-axis signature tally and the mixed-grid test, the five-movement wedding
+arc and the Indian multi-day function table, the five-rung film ladder and the
+four-route music policy, the pricing disclosure ladder, the client-gallery
+two-systems rule, the share-back pipeline and venue-page specification, the
+case-study anatomy, the media-consent workflow, the enquiry-conversion patterns
+for a WhatsApp-first market, all agent objectives, and every checklist.
 Those are this framework's opinions. They are argued for in the skills that
 contain them, and they are the parts you should push back on first.
